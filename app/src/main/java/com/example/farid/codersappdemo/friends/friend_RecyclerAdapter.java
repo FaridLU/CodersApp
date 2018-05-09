@@ -1,7 +1,10 @@
 package com.example.farid.codersappdemo.friends;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.farid.codersappdemo.MainActivity;
 import com.example.farid.codersappdemo.R;
 import com.example.farid.codersappdemo.user_profile;
 
@@ -50,6 +54,15 @@ public class friend_RecyclerAdapter extends RecyclerView.Adapter<friend_Recycler
                 Intent intent = new Intent(mContext, user_profile.class);
                 intent.putExtra("name", list.get(position).getFriend_name());
                 mContext.startActivity(intent);
+
+                /*Fragment mFragment = null;
+                mFragment = new user_profile();
+
+                FragmentActivity context = (FragmentActivity) mContext;
+
+                FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.layout_container, mFragment);
+                transaction.commit();*/
             }
         });
 
