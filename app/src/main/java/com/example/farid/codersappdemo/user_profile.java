@@ -40,7 +40,7 @@ public class user_profile extends AppCompatActivity
 
         mAppBarLayout.addOnOffsetChangedListener(this);
 
-        mToolbar.inflateMenu(R.menu.profile_menu);
+        //mToolbar.inflateMenu(R.menu.profile_menu);
         startAlphaAnimation(mTitle, 0, View.INVISIBLE);
     }
 
