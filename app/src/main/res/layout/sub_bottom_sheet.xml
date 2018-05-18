@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/problem_code_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#262525"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+    app:behavior_hideable="true"
+    android:focusable="true"
+    android:clickable="true"
+    app:behavior_peekHeight="40dp">
+
+    <TextView
+        android:id="@+id/bottom_sheet_text"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="16sp"
+        android:textColor="#fff"
+        android:background="#383535"
+        android:gravity="center_vertical|center_horizontal"
+        android:textStyle="bold"
+        android:text="Open with"/>
+
+    <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:id="@+id/problem_view"
+        android:padding="5dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:clickable="true">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/problem"/>
+        <TextView
+            android:textColor="#fff"
+            android:layout_marginLeft="32dp"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Goto Problem Statement"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:padding="5dp"
+        android:id="@+id/code_view"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:clickable="true">
+
+        <ImageView
+            android:textColor="#fff"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/code_icon"/>
+        <TextView
+            android:textColor="#fff"
+            android:layout_marginLeft="32dp"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Source Code"/>
+    </LinearLayout>
+</LinearLayout>

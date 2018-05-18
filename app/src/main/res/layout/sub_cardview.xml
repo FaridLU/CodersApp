@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:id="@+id/sub_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    app:cardCornerRadius="15dp"
+    android:layout_margin="15dp"
+    android:padding="10dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardElevation="20dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/judge_icon"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/codechef_round_icon"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:id="@+id/problem_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="25sp"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Problem Name"
+                    android:textStyle="bold"
+                    android:autoSizeMaxTextSize="25sp"
+                    android:autoSizeMinTextSize="10sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"/>
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+
+                android:id="@+id/solution_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submission Time"
+                android:paddingBottom="5dp"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_marginBottom="3dp"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:id="@+id/solution_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:gravity="center"
+                    android:text="Solution Status"
+                    android:textStyle="bold"
+                    android:autoSizeMaxTextSize="24sp"
+                    android:autoSizeMinTextSize="10sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"/>
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="19dp"
+                android:weightSum="2">
+                <TextView
+                    android:id="@+id/ex_time"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Ex time"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:textSize="14sp"/>
+                <TextView
+                    android:id="@+id/usage_memory"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="memory"
+                    android:textSize="14sp"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

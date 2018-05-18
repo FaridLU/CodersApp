@@ -41,6 +41,8 @@ dependencies {
     implementation 'com.github.chenupt.android:springindicator:1.0.2@aar'
     implementation 'com.github.chenupt.android:multiplemodel:1.1.0@aar'
 
+    implementation 'me.spark:submitbutton:1.0.1'
+    implementation 'thereisnospon.codeview:codeview:0.3.1'
 
 
 }

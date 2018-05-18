@@ -41,32 +41,25 @@
 
                 <LinearLayout
                     android:id="@+id/profile_linearlayout_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
+                    android:padding="3dp"
                     >
-                    <android.support.v7.widget.CardView
-                        android:layout_width="wrap_content"
+
+                    <TextView
+                        android:id="@+id/profile_username"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="100dp"
-                        app:cardBackgroundColor="#074d59"
-                        android:layout_marginTop="10dp">
-
-                        <TextView
-
-                            android:layout_width="224dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:gravity="bottom|center"
-                            android:padding="3dp"
-                            android:text="Tareq Aziz khan"
-                            android:textColor="#ffffff"
-                            android:textSize="25sp" />
-
-                    </android.support.v7.widget.CardView>
+                        android:layout_gravity="center_vertical"
+                        android:gravity="bottom|center"
+                        android:text="Tareq Aziz khan"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold"
+                        android:textSize="25sp" />
                 </LinearLayout>
             </FrameLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -78,8 +71,7 @@
         android:scrollbars="none"
         app:behavior_overlapTop="00dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
-        >
+        android:background="#313235">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,6 +88,62 @@
                 android:layout_gravity="center"
                 android:layout_margin="13dp"
                 app:cardElevation="8dp"
+                app:cardBackgroundColor="#78909C"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/tool_bar4"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="10dp"
+                        android:minHeight="0dp"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                        app:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/view_pager4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center" />
+
+                        <github.chenupt.springindicator.SpringIndicator
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            app:siTextSize="12sp"
+                            app:siIndicatorColors="@array/indicator_colors"
+                            app:siTextColor="@color/colorPrimaryDark"
+                            app:siSelectedTextColor="@android:color/white"
+                            app:siIndicatorColor="@color/colorPrimary"
+                            android:layout_marginTop="10dp"
+                            android:id="@+id/indicator4"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="372dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="13dp"
+                app:cardElevation="8dp"
+                android:padding="1dp"
+                app:cardBackgroundColor="#7e7e7e"
                 app:cardCornerRadius="8dp">
 
                 <LinearLayout
@@ -143,11 +191,8 @@
                             android:layout_height="56dp"
                             android:layout_marginLeft="24dp"
                             android:layout_marginRight="24dp" />
-
                     </FrameLayout>
-
                 </LinearLayout>
-
             </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView
                 android:layout_width="372dp"
@@ -155,6 +200,8 @@
                 android:layout_gravity="center"
                 android:layout_margin="13dp"
                 app:cardElevation="8dp"
+                android:padding="1dp"
+                app:cardBackgroundColor="#7e7e7e"
                 app:cardCornerRadius="8dp">
 
                 <LinearLayout
@@ -214,6 +261,8 @@
                 android:layout_gravity="center"
                 android:layout_margin="13dp"
                 app:cardElevation="8dp"
+                android:padding="1dp"
+                app:cardBackgroundColor="#7e7e7e"
                 app:cardCornerRadius="8dp">
 
                 <LinearLayout
@@ -270,6 +319,66 @@
             </android.support.v7.widget.CardView>
 
 
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+                <!--https://github.com/SparkYuan/SubmitButton-->
+                <com.spark.submitbutton.SubmitButton
+                    android:id="@+id/bt1"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="40dp"
+                    android:paddingTop="40dp"
+                    android:text="Submit"
+                    android:clickable="true"
+                    android:textColor="@color/gray"
+                    app:sub_btn_background="@color/white"
+                    app:sub_btn_duration="10000"
+                    app:sub_btn_line_color="@color/green"
+                    app:sub_btn_ripple_color="@color/green"
+                    app:sub_btn_tick_color="@color/white" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+                <com.spark.submitbutton.SubmitButton
+                    android:id="@+id/bt2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="40dp"
+                    android:paddingTop="40dp"
+                    android:text="Codeforces recent Activities"
+                    android:clickable="true"
+                    android:textColor="@color/gray"
+                    app:sub_btn_background="@color/white"
+                    app:sub_btn_duration="10000"
+                    app:sub_btn_line_color="@color/green"
+                    app:sub_btn_ripple_color="@color/green"
+                    app:sub_btn_tick_color="@color/white" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+                <com.spark.submitbutton.SubmitButton
+                    android:id="@+id/bt3"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="40dp"
+                    android:paddingTop="40dp"
+                    android:text="Submit3"
+                    android:clickable="true"
+                    android:textColor="@color/gray"
+                    app:sub_btn_background="@color/white"
+                    app:sub_btn_duration="10000"
+                    app:sub_btn_line_color="@color/green"
+                    app:sub_btn_ripple_color="@color/green"
+                    app:sub_btn_tick_color="@color/white" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
 
@@ -300,7 +409,7 @@
                 android:id="@+id/profile_textview_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:text="Tareq Aziz Khan"
                 android:textColor="@android:color/white"

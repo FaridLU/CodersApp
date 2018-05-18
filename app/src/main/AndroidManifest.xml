@@ -28,7 +28,12 @@
         <activity android:name=".loading_activity" />
         <activity android:name=".contest.main_contest" />
         <activity android:name=".friends.friend_list" />
-        <activity android:name=".user_profile" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".user_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".submission.sub_recyclerview" />
+        <activity android:name=".submission.sub_code_view" />
+        <activity android:name=".Main2Activity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="#78909C"
+    android:elevation="35dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:weightSum="5"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/view_pager_judge_img"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:padding="40dp"
+            android:src="@drawable/team"
+            android:layout_marginTop="60dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp">
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#081e30"
+                app:cardCornerRadius="8dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/view_pager_judge_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textStyle="bold"
+                        android:layout_marginTop="12dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:textColor="#ffffff"
+                        android:textSize="21dp"
+                        android:text="Friends"/>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.3"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center">
+            <!--https://github.com/SparkYuan/SubmitButton-->
+            <com.spark.submitbutton.SubmitButton
+                android:id="@+id/go_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="40dp"
+                android:paddingTop="40dp"
+                android:clickable="false"
+                android:text="View"
+                android:textColor="@color/black"
+                app:sub_btn_background="@color/white"
+                app:sub_btn_duration="2000"
+                app:sub_btn_line_color="@color/green"
+                app:sub_btn_ripple_color="@color/green"
+                app:sub_btn_tick_color="@color/white" />
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

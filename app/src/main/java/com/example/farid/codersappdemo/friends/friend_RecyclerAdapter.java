@@ -53,6 +53,8 @@ public class friend_RecyclerAdapter extends RecyclerView.Adapter<friend_Recycler
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, user_profile.class);
                 intent.putExtra("name", list.get(position).getFriend_name());
+                intent.putExtra("cf_handle", list.get(position).getCodeforcesID());
+                intent.putExtra("cc_handle", list.get(position).getCodechefID());
                 mContext.startActivity(intent);
 
                 /*Fragment mFragment = null;
