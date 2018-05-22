@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            android:padding="40dp"
+            android:padding="30dp"
             android:src="@drawable/team"
             android:layout_marginTop="60dp"/>
 
@@ -47,7 +47,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:textStyle="bold"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="14dp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:textColor="#ffffff"
@@ -76,7 +76,7 @@
                 android:text="View"
                 android:textColor="@color/black"
                 app:sub_btn_background="@color/white"
-                app:sub_btn_duration="2000"
+                app:sub_btn_duration="3000"
                 app:sub_btn_line_color="@color/green"
                 app:sub_btn_ripple_color="@color/green"
                 app:sub_btn_tick_color="@color/white" />

@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         app:layout_anchor="@+id/sub_recycler_view"
         app:layout_anchorGravity="bottom|center"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <include layout="@layout/sub_bottom_sheet"/>
 

@@ -198,9 +198,9 @@ public class sub_recyclerview extends AppCompatActivity {
         list.addAll(make_for_codechef());
         list.addAll(make_for_codechef());
         list.addAll(make_for_codechef());
-        list.addAll(make_for_codechef());
-        list.addAll(make_for_codechef());
-        list.addAll(make_for_codechef());
+        list.addAll(make_for_codeforces());
+        list.addAll(make_for_codeforces());
+        list.addAll(make_for_codeforces());
 
         int min, hour, day = 0, month, year;
         String time;
@@ -344,7 +344,8 @@ public class sub_recyclerview extends AppCompatActivity {
                         String point =  el.get(i).select("td").get(5).select("div").select("span").first().text();
                         StringTokenizer st = new StringTokenizer(point);
                         point = st.nextToken();
-                        if(Integer.valueOf(point) == 100) {
+
+                        if(Long.valueOf(point) == 100) {
                             solution_status = "accepted";
                         }
                         else solution_status = "partially accepted("+point+"pts)";
@@ -359,9 +360,6 @@ public class sub_recyclerview extends AppCompatActivity {
 
                     solution_link = tmp.replaceFirst("viewsolution", "viewplaintext");
 
-                    if(y == 2018 && i == 0) {
-                        System.out.println(solution_link);
-                    }
                     if(type == 3) Codechef.add( new submission_activity(cc_handle, solution_id, solution_time, problem_code, solution_status, problem_link, solution_link, "codechef", solution_language, solution_execution_time, usage_memory, problem_difficulty)) ;
                     else list.add(new submission_activity(cc_handle, solution_id, solution_time, problem_code, solution_status, problem_link, solution_link, "codechef", solution_language, solution_execution_time, usage_memory, problem_difficulty));
                     if(val >= 20) break;
@@ -371,6 +369,7 @@ public class sub_recyclerview extends AppCompatActivity {
         } catch(Exception e) {
             System.out.println("Catch ");
         } finally {
+            System.out.println("ye: " + ye + " list: " + list.size() + " >>>>>>>>>>>>>>>>>>>>>>");
             return list;
         }
            /* }

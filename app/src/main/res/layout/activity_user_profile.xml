@@ -63,6 +63,8 @@
                 </LinearLayout>
             </FrameLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
+
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
@@ -157,7 +159,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="110dp"
                         android:layout_marginBottom="10dp"
-                        android:src="@drawable/codechef_full"
+                        android:src="@drawable/codeforces_full"
                         />
 
                     <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -276,7 +278,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="110dp"
                         android:layout_marginBottom="10dp"
-                        android:src="@drawable/codechef_full"
+                        android:src="@drawable/uva"
                         />
 
                     <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -434,3 +436,5 @@
         app:startToolbarPosition="2dp"
         app:startXPosition="2dp" />
 </android.support.design.widget.CoordinatorLayout>
+
+

@@ -16,9 +16,11 @@
     <color name="testcolorblue">#152b38</color>
     <color name="pink">#fe104d</color>
     <color name="black_overlay">#e4000000</color>
+    <color name="darkGreen">#e4009e20</color>
 
-    <color name="indicator_1">#55B3C2</color>
-    <color name="indicator_2">#64A4A4</color>
+
+    <color name="indicator_1">#2f5d7e</color>
+    <color name="indicator_2">#7aa2c6</color>
     <color name="indicator_3">#66D7B9</color>
     <color name="indicator_4">#FDBC7D</color>
 
