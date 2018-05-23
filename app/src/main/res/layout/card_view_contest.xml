@@ -78,6 +78,13 @@
                     android:background="#fff"
                     android:src="@drawable/codeforces" />
 
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="70dp"
+                    android:background="#023038"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="2dp"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -130,7 +137,11 @@
                             tools:ignore="MissingPrefix" />
 
                     </LinearLayout>
-
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="2dp"
+                        android:background="#0b0b0b"
+                        android:layout_marginRight="10dp"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
