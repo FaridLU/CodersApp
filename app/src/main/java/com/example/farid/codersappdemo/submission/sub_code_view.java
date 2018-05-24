@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +14,8 @@ import com.example.farid.codersappdemo.R;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import thereisnospon.codeview.CodeView;
 import thereisnospon.codeview.CodeViewTheme;
@@ -65,6 +68,7 @@ public class sub_code_view extends AppCompatActivity {
             dialog.dismiss();
             if(CODE == null) {
                 Toast.makeText(mContext,"Something went wrong", Toast.LENGTH_SHORT).show();
+                codeView.showCode("Code pawa gese na");
             } else codeView.showCode(CODE);
         }
 
@@ -76,10 +80,11 @@ public class sub_code_view extends AppCompatActivity {
     };
 
     public String give_me_code(String link, String judge) {
-        if(judge == "codeforces") {
+        Log.d("codecode", "judge: " + judge);
+        if(judge.equals("codeforces")) {
             try {
                 Document doc = Jsoup.connect(link).get();
-                String code = doc.getElementsByClass("prettyprint lang-cpp program-source").text();
+                String code = doc.getElementsByClass("roundbox").select("pre").first().text();
                 return code;
 
             } catch(Exception e){

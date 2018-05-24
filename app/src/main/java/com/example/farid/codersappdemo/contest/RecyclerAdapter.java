@@ -90,9 +90,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.recycl
             holder.tv_end_information.setText(list.get(position).getEnd_information());
             holder.img_contest.setImageResource(list.get(position).getContest_image());
 
-            holder.card_view.setOnLongClickListener(new View.OnLongClickListener() {
+            holder.card_view.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onLongClick(View v) {
+                public void onClick(View v) {
                     final Dialog mDialog = new Dialog(mContest);
                     if(bottomSheetBehavior.isShow()) bottomSheetBehavior.dismiss();
 
@@ -109,8 +109,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.recycl
                     LinearLayout share = mDialog.findViewById(R.id.share_link);
                     ImageView icon = mDialog.findViewById(R.id.tv_judge_icon);
 
-                    if(list.get(position).getJudge().toLowerCase() == "codechef") {
-                        icon.setImageResource(R.drawable.codechef);
+                    if(list.get(position).getJudge().toLowerCase().equals("codechef")) {
+                        icon.setImageResource(R.drawable.codechef_round);
+                    } else {
+                        icon.setImageResource(R.drawable.codeforces_round);
                     }
 
                     final TextView status = mDialog.findViewById(R.id.tv_status);
@@ -168,24 +170,27 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.recycl
                     share.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(mContest, "Sorry Share option is not added yet..", Toast.LENGTH_SHORT).show();
-                            //bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                            mDialog.dismiss();
+                            bottomSheetBehavior.show();
+                            Intent intent = new Intent("Pass");
+                            intent.putExtra("position", position);
+                            LocalBroadcastManager.getInstance(mContest).sendBroadcast(intent);
                         }
                     });
-                    return false;
                 }
             }) ;
 
-            holder.card_view.setOnClickListener(new View.OnClickListener() {
+            holder.card_view.setOnLongClickListener(new View.OnLongClickListener() {
 
                 @Override
-                public void onClick(View v) {
+                public boolean onLongClick(View v) {
                     bottomSheetBehavior.show();
                     Intent intent = new Intent("Pass");
                     intent.putExtra("position", position);
                     LocalBroadcastManager.getInstance(mContest).sendBroadcast(intent);
-
+                    return  true;
                 }});
+
         }
         @Override
         public int getItemViewType(int position) {

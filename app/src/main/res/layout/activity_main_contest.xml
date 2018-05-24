@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".contest.main_contest"
     android:id="@+id/contest_layout"
-    android:background="#546E7A">
+    android:background="#3e5159">
     <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/pullRefresh"
         android:layout_width="match_parent"

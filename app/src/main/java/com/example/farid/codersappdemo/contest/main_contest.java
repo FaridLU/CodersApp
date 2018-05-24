@@ -101,6 +101,7 @@ public class main_contest extends AppCompatActivity {
     private int position;
     PullRefreshLayout pullRefreshLayout;
     RecyclerAdapter myAdapter;
+    Boolean isTop = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +124,29 @@ public class main_contest extends AppCompatActivity {
         mSweetSheet3.setBackgroundEffect(new BlurEffect(8));
 
         SetAdapter();
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.d("xmlxml", newState + "*****************");
+                if(newState == 0) {
+                    isTop = true;
+                }
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy < 0 && isTop) {
+                    pullRefreshLayout.setEnabled(true);
+                } else {
+                    pullRefreshLayout.setEnabled(false);
+                }
+                Log.d("xmlxml", dx + " "+ dy + " **");
+            }
+        });
+
+
 
         pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
@@ -302,6 +326,7 @@ public class main_contest extends AppCompatActivity {
         recyclerView.setLayoutManager(new VegaLayoutManager());
         recyclerView.setAdapter(myAdapter);
         recyclerView.smoothScrollToPosition(0);
+
         //recyclerView.setNestedScrollingEnabled(false); // Hide
     }
     public void FindVIewByID(){
@@ -339,6 +364,7 @@ public class main_contest extends AppCompatActivity {
             super.onPostExecute(aVoid);
             pullRefreshLayout.setRefreshing(false);
             myAdapter.notifyDataSetChanged();
+            Toast.makeText(main_contest.this, "Dataset updated!", Toast.LENGTH_SHORT).show();
             // After complete sync
         }
 

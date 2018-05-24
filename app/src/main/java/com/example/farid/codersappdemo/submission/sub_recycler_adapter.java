@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,43 @@ public class sub_recycler_adapter extends RecyclerView.Adapter<sub_recycler_adap
         holder.sub_card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED || bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN )bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED || bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN ) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    problem_statement.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                            String problem_link = list.get(position).problem_link;
+                            if(problem_link != null) {
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(problem_link));
+                                mContext.startActivity(intent);
+                            }
+                            else {
+                                Toast.makeText(mContext, "Seems like this is private problem", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    source_code.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                            String solution_link = list.get(position).solution_link;
+                            Log.d("codecode", solution_link);
+                            String tmp = solution_link;
+                            if(solution_link != null) {
+                                Intent intent = new Intent(mContext, sub_code_view.class);
+                                intent.putExtra("link", solution_link);
+                                intent.putExtra("problem_name", list.get(position).problem_name);
+                                intent.putExtra("handle", list.get(position).getHandle());
+                                intent.putExtra("judge", list.get(position).getJudge());
+                                mContext.startActivity(intent);
+                            }
+                            else {
+                                Toast.makeText(mContext, "Seems like this is on going contest problem! Try again later", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
                 else bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
             }
         });
@@ -98,38 +135,6 @@ public class sub_recycler_adapter extends RecyclerView.Adapter<sub_recycler_adap
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
                 } else {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                }
-            }
-        });
-
-        problem_statement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                String problem_link = list.get(position).problem_link;
-                if(problem_link != null) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(problem_link));
-                    mContext.startActivity(intent);
-                }
-                else {
-                    Toast.makeText(mContext, "Seems like this is private problem", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        source_code.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                String solution_link = list.get(position).solution_link;
-                if(solution_link != null) {
-                    Intent intent = new Intent(mContext, sub_code_view.class);
-                    intent.putExtra("link", solution_link);
-                    intent.putExtra("problem_name", list.get(position).problem_name);
-                    intent.putExtra("handle", list.get(position).getHandle());
-                    mContext.startActivity(intent);
-                }
-                else {
-                    Toast.makeText(mContext, "Seems like this is on going contest problem! Try again later", Toast.LENGTH_SHORT).show();
                 }
             }
         });
