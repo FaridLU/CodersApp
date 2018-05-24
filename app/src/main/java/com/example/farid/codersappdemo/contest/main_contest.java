@@ -3,9 +3,14 @@ package com.example.farid.codersappdemo.contest;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ShareCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +38,7 @@ import android.os.Bundle;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +63,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -107,8 +115,9 @@ public class main_contest extends AppCompatActivity {
         CustomDelegate customDelegate = new CustomDelegate(true, CustomDelegate.AnimationType.DuangLayoutAnimation);
         View view = LayoutInflater.from(this).inflate(R.layout.bottom_sheet_share, null, false);
         customDelegate.setCustomView(view);
-        customDelegate.setContentHeight(710);
+        customDelegate.setContentHeight(775);
         mSweetSheet3.setDelegate(customDelegate);
+        mSweetSheet3.setBackgroundEffect(new BlurEffect(8));
 
         SetAdapter();
 
@@ -116,21 +125,68 @@ public class main_contest extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mSweetSheet3.toggle();
-                Toast.makeText(main_contest.this, "Facebook share button is clicked", Toast.LENGTH_SHORT).show();
+                Intent shareIntent = ShareCompat.IntentBuilder.from(main_contest.this)
+                        .setText(All_Contest_list.get(position).contest_link)
+                        .setType("text/plain")
+                        .getIntent()
+                        .setPackage("com.facebook.katana");
+                try {
+                    startActivity(shareIntent);
+                } catch (Exception e) {
+                    Toast.makeText(main_contest.this,"Please Install Facebook app", Toast.LENGTH_LONG).show();
+                }
+                //Toast.makeText(main_contest.this, "Facebook share button is clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        view.findViewById(R.id.twitter_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSweetSheet3.toggle();
+                Intent shareIntent = ShareCompat.IntentBuilder.from(main_contest.this)
+                        .setText(All_Contest_list.get(position).contest_link)
+                        .setType("text/plain")
+                        .getIntent()
+                        .setPackage("com.twitter.android");
+                try {
+                    startActivity(shareIntent);
+                } catch (Exception e) {
+                    Toast.makeText(main_contest.this,"Please Install Twitter app", Toast.LENGTH_LONG).show();
+                }
+                //Toast.makeText(main_contest.this, "Facebook share button is clicked", Toast.LENGTH_SHORT).show();
             }
         });
         view.findViewById(R.id.whatsapp_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mSweetSheet3.toggle();
-                Toast.makeText(main_contest.this, "Whatsapp share button is clicked", Toast.LENGTH_SHORT).show();
+                Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+                whatsappIntent.setType("text/plain");
+                whatsappIntent.setPackage("com.whatsapp");
+                whatsappIntent.putExtra(Intent.EXTRA_TEXT, "The text you wanted to share");
+                try {
+                    startActivity(whatsappIntent);
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(main_contest.this, "Whatsapp have not been installed.", Toast.LENGTH_SHORT).show();
+                }
+                //Toast.makeText(main_contest.this, "Whatsapp share button is clicked", Toast.LENGTH_SHORT).show();
             }
         });
         view.findViewById(R.id.telegram_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mSweetSheet3.toggle();
-                Toast.makeText(main_contest.this, "Telegram share button is clicked", Toast.LENGTH_SHORT).show();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,All_Contest_list.get(position).contest_link);
+                sendIntent.setType("text/plain");
+                sendIntent.setPackage("org.telegram.messenger");
+                try{
+                    startActivity(sendIntent);
+                }
+                catch (android.content.ActivityNotFoundException ex){
+                    Toast.makeText(getApplicationContext(),"Install Telegram",Toast.LENGTH_LONG).show();
+                }
+                //Toast.makeText(main_contest.this, "Telegram share button is clicked", Toast.LENGTH_SHORT).show();
             }
         });
         view.findViewById(R.id.messenger_share).setOnClickListener(new View.OnClickListener() {
@@ -155,15 +211,61 @@ public class main_contest extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mSweetSheet3.toggle();
-                Toast.makeText(main_contest.this, "Google+ share button is clicked", Toast.LENGTH_SHORT).show();
 
+                Intent shareIntent = ShareCompat.IntentBuilder.from(main_contest.this)
+                        .setText(All_Contest_list.get(position).contest_link)
+                        .setType("text/plain")
+                        .getIntent()
+                        .setPackage("com.google.android.apps.plus");
+                try {
+                    startActivity(shareIntent);
+                } catch (Exception e) {
+                    Toast.makeText(main_contest.this,"Please Install Google plus app", Toast.LENGTH_LONG).show();
+                }
+
+                //Toast.makeText(main_contest.this, "Google+ share button is clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        view.findViewById(R.id.message_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSweetSheet3.toggle();
+
+                Intent shareIntent = ShareCompat.IntentBuilder.from(main_contest.this)
+                        .setText(All_Contest_list.get(position).contest_link)
+                        .setType("text/plain")
+                        .getIntent()
+                        .setPackage("com.samsung.android.messaging");
+                try {
+                    startActivity(shareIntent);
+                } catch (Exception e) {
+                    Toast.makeText(main_contest.this,"Please Install Google plus app", Toast.LENGTH_LONG).show();
+                }
+
+                //Toast.makeText(main_contest.this, "Google+ share button is clicked", Toast.LENGTH_SHORT).show();
             }
         });
         view.findViewById(R.id.email_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mSweetSheet3.toggle();
-                Toast.makeText(main_contest.this, "Email share button is clicked", Toast.LENGTH_SHORT).show();
+                /*Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, All_Contest_list.get(position).contest_link);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);*/
+
+                Intent shareIntent = ShareCompat.IntentBuilder.from(main_contest.this)
+                        .setText(All_Contest_list.get(position).contest_link)
+                        .setType("text/plain")
+                        .getIntent()
+                        .setPackage("com.google.android.gm");
+                try {
+                    startActivity(shareIntent);
+                } catch (Exception e) {
+                    Toast.makeText(main_contest.this,"Please Install Email app", Toast.LENGTH_LONG).show();
+                }
+                //Toast.makeText(main_contest.this, "Email share button is clicked", Toast.LENGTH_SHORT).show();
             }
         });
         /*final Snackbar snackbar = Snackbar.make(coordinatorLayout, "List may corrupted for more accurate result reload the page", Snackbar.LENGTH_INDEFINITE);
@@ -176,9 +278,6 @@ public class main_contest extends AppCompatActivity {
         snackbar.show();*/
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReciver, new IntentFilter("Pass"));
-    }
-    public void SweetSheetOnClickListener(){
-
     }
     public BroadcastReceiver mMessageReciver = new BroadcastReceiver() {
         // Helpful link for this: https://stackoverflow.com/questions/35008860/how-to-pass-values-from-recycleadapter-to-mainactivity-or-other-activities?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa

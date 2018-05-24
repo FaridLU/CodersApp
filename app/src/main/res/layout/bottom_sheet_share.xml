@@ -7,7 +7,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#282828"
-    android:padding="10dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
     tools:context=".contest.main_contest">
 
 
@@ -220,5 +221,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Twitter"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/view7"
+        android:layout_below="@+id/twitter_share"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#fff"/>
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:layout_below="@+id/view7"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/message_share"
+        android:padding="5dp"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:clickable="true">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/message"/>
+        <TextView
+            android:textColor="#fff"
+            android:layout_marginLeft="27dp"
+            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Message"/>
     </LinearLayout>
 </RelativeLayout>

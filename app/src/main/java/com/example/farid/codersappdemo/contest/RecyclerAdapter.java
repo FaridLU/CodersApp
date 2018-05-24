@@ -185,7 +185,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.recycl
                 @Override
                 public void onClick(View v) {
                     bottomSheetBehavior.show();
-                    bottomSheetBehavior.setBackgroundEffect(new BlurEffect(8));
                     Intent intent = new Intent("Pass");
                     intent.putExtra("position", position);
                     LocalBroadcastManager.getInstance(mContest).sendBroadcast(intent);
