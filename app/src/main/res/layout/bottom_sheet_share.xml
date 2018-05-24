@@ -1,198 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/share_bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="#282828"
-    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
-    app:behavior_hideable="true"
-    android:focusable="false"
-    app:behavior_peekHeight="?android:attr/actionBarSize"
-    tools:ignore="MissingPrefix">
+    android:padding="10dp"
+    tools:context=".contest.main_contest">
 
-    <TextView
-        android:id="@+id/bottom_sheet_text"
-        android:clickable="true"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:textSize="16sp"
-        android:textColor="#fff"
-        android:background="#383535"
-        android:gravity="center_vertical|center_horizontal"
-        android:textStyle="bold"
-        android:text="Share with"/>
 
     <LinearLayout
+        android:layout_margin="5dp"
         android:layout_marginLeft="16dp"
         android:id="@+id/facebook_share"
         android:padding="5dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:focusable="true"
         android:clickable="true">
 
         <ImageView
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/facebook"/>
         <TextView
             android:textColor="#fff"
-            android:layout_marginLeft="32dp"
+            android:layout_marginLeft="27dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="17sp"
             android:text="Facebook"/>
     </LinearLayout>
+    <View
+        android:id="@+id/view1"
+        android:layout_below="@+id/facebook_share"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#fff"/>
     <LinearLayout
+        android:layout_margin="5dp"
+        android:layout_below="@+id/view1"
         android:layout_marginLeft="16dp"
         android:id="@+id/messenger_share"
         android:padding="5dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:focusable="true"
         android:clickable="true">
 
         <ImageView
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/messenger"/>
         <TextView
+            android:textSize="17sp"
             android:textColor="#fff"
-            android:layout_marginLeft="32dp"
+            android:layout_marginLeft="27dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Messenger"/>
     </LinearLayout>
+    <View
+        android:id="@+id/view2"
+        android:layout_below="@+id/messenger_share"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#fff"/>
     <LinearLayout
+        android:layout_margin="5dp"
+        android:layout_below="@+id/view2"
         android:layout_marginLeft="16dp"
         android:id="@+id/telegram_share"
         android:padding="5dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:focusable="true"
         android:clickable="true">
 
         <ImageView
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/telegram"/>
         <TextView
+            android:textSize="17sp"
             android:textColor="#fff"
-            android:layout_marginLeft="32dp"
+            android:layout_marginLeft="27dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Telegram"/>
     </LinearLayout>
+    <View
+        android:id="@+id/view3"
+        android:layout_below="@+id/telegram_share"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#fff"/>
     <LinearLayout
+        android:layout_margin="5dp"
+        android:layout_below="@+id/view3"
         android:layout_marginLeft="16dp"
         android:id="@+id/googleplus_share"
         android:padding="5dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:focusable="true"
         android:clickable="true">
 
         <ImageView
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/googleplus"/>
         <TextView
+            android:textSize="17sp"
             android:textColor="#fff"
-            android:layout_marginLeft="32dp"
+            android:layout_marginLeft="27dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Google+"/>
     </LinearLayout>
+    <View
+        android:id="@+id/view4"
+        android:layout_below="@+id/googleplus_share"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#fff"/>
     <LinearLayout
+        android:layout_margin="5dp"
+        android:layout_below="@+id/view4"
         android:layout_marginLeft="16dp"
         android:id="@+id/email_share"
         android:padding="5dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:focusable="true"
         android:clickable="true">
 
         <ImageView
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/email"/>
         <TextView
+            android:textSize="17sp"
             android:textColor="#fff"
-            android:layout_marginLeft="32dp"
+            android:layout_marginLeft="27dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email"/>
     </LinearLayout>
+    <View
+        android:id="@+id/view5"
+        android:layout_below="@+id/email_share"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#fff"/>
     <LinearLayout
+        android:layout_margin="5dp"
+        android:layout_below="@+id/view5"
         android:layout_marginLeft="16dp"
         android:id="@+id/whatsapp_share"
         android:padding="5dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:focusable="true"
         android:clickable="true">
 
         <ImageView
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/whatsapp"/>
         <TextView
+            android:textSize="17sp"
             android:textColor="#fff"
-            android:layout_marginLeft="32dp"
+            android:layout_marginLeft="27dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="WhatsApp"/>
     </LinearLayout>
+    <View
+        android:id="@+id/view6"
+        android:layout_below="@+id/whatsapp_share"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#fff"/>
     <LinearLayout
+        android:layout_margin="5dp"
+        android:layout_below="@+id/view6"
         android:layout_marginLeft="16dp"
         android:id="@+id/twitter_share"
         android:padding="5dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:focusable="true"
         android:clickable="true">
 
         <ImageView
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/twitter"/>
         <TextView
             android:textColor="#fff"
-            android:layout_marginLeft="32dp"
+            android:layout_marginLeft="27dp"
+            android:textSize="17sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Twitter"/>
     </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

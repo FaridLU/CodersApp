@@ -8,34 +8,44 @@ import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.farid.codersappdemo.MainActivity;
 import com.example.farid.codersappdemo.R;
+import com.mingle.sweetpick.BlurEffect;
+import com.mingle.sweetpick.SweetSheet;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
 import java.util.Random;
+import android.os.Handler;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.recyclerViewHolder> {
 
         Context mContest;
         List< ContestActivity > list;
         int present_contest = 1, upcomming_contest = 2, flg = 0;
-        LinearLayout facebook, whatsapp, telegram, googleplus, email, messenger, share_bottom_sheet;
+        LinearLayout facebook, whatsapp, telegram, googleplus, email, messenger;
+        RelativeLayout share_bottom_sheet;
 
-        BottomSheetBehavior bottomSheetBehavior;
+        SweetSheet bottomSheetBehavior;
         AVLoadingIndicatorView avi;
+        Button temp;
 
-        public RecyclerAdapter(Context mContest, List<ContestActivity> list, LinearLayout facebook, LinearLayout whatsapp, LinearLayout telegram, LinearLayout googleplus, LinearLayout email, LinearLayout messenger, BottomSheetBehavior bottomSheetBehavior, LinearLayout share_bottom_sheet) {
+
+        public RecyclerAdapter(Context mContest, List<ContestActivity> list, LinearLayout facebook, LinearLayout whatsapp, LinearLayout telegram, LinearLayout googleplus, LinearLayout email, LinearLayout messenger, SweetSheet bottomSheetBehavior, RelativeLayout share_bottom_sheet) {
             this.mContest = mContest;
             this.list = list;
             this.facebook = facebook;
@@ -84,26 +94,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.recycl
             holder.tv_end_information.setText(list.get(position).getEnd_information());
             holder.img_contest.setImageResource(list.get(position).getContest_image());
 
-            share_bottom_sheet.setOnClickListener(new View.OnClickListener() {
+            holder.card_view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public void onClick(View v) {
-                    if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                    } else {
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                    }
-                }
-            });
-            holder.card_view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                public boolean onLongClick(View v) {
                     final Dialog mDialog = new Dialog(mContest);
-
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                    if(bottomSheetBehavior.isShow()) bottomSheetBehavior.dismiss();
 
                     mDialog.getWindow().getAttributes().windowAnimations = R.style.SlideScale;
 
                     mDialog.setContentView(R.layout.custom_popup_window);
+                    mDialog.show();
 
                     TextView title = mDialog.findViewById(R.id.tv_contest_title);
                     title.setText(list.get(position).getContest_name());
@@ -168,7 +168,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.recycl
                             Toast.makeText(mContest, "Sorry Reminder option is not added yet..", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
                     share.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -176,64 +176,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.recycl
                             //bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         }
                     });
-                    mDialog.show();
+                    return false;
                 }
-            });
+            }) ;
 
-            holder.card_view.setOnLongClickListener(new View.OnLongClickListener() {
+            holder.card_view.setOnClickListener(new View.OnClickListener() {
+
                 @Override
-                public boolean onLongClick(View v) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                public void onClick(View v) {
+                    bottomSheetBehavior.show();
+                    bottomSheetBehavior.setBackgroundEffect(new BlurEffect(8));
+                    Intent intent = new Intent("Pass");
+                    intent.putExtra("position", position);
+                    LocalBroadcastManager.getInstance(mContest).sendBroadcast(intent);
 
-                    facebook.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Toast.makeText(mContest, "Facebook share button is clicked", Toast.LENGTH_SHORT).show();
-                            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                            holder.card_view.setClickable(true);
-                        }
-                    });
-                    whatsapp.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                            Toast.makeText(mContest, "Whatsapp share button is clicked", Toast.LENGTH_SHORT).show();
-                            holder.card_view.setClickable(true);
-                        }
-                    });
-                    telegram.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                            Toast.makeText(mContest, "Telegram share button is clicked", Toast.LENGTH_SHORT).show();
-                            holder.card_view.setClickable(true);
-                        }
-                    });
-                    messenger.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                            Toast.makeText(mContest, "Messenger share button is clicked", Toast.LENGTH_SHORT).show();
-                            holder.card_view.setClickable(true);
-                        }
-                    });
-                    googleplus.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                            Toast.makeText(mContest, "Google+ share button is clicked", Toast.LENGTH_SHORT).show();
-                            holder.card_view.setClickable(true);
-                        }
-                    });
-                    email.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                            Toast.makeText(mContest, "Email share button is clicked", Toast.LENGTH_SHORT).show();
-                            holder.card_view.setClickable(true);
-                        }
-                    });
-                    return true;
                 }});
         }
         @Override
@@ -269,6 +225,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.recycl
                 tv_contest_name = itemView.findViewById(R.id.contest_name);
                 img_contest = itemView.findViewById(R.id.img_contest);
                 card_view = itemView.findViewById(R.id.card_view);
+
+                /*View view = LayoutInflater.from(mContest).inflate(R.layout.bottom_sheet_share, null, false);
+                temp = view.findViewById(R.id.temp);
+                view.findViewById(R.id.temp).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("tt", "class");
+                        bottomSheetBehavior.dismiss();
+                    }
+                });*/
             }
         }
 }

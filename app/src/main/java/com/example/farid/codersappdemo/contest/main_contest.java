@@ -1,8 +1,12 @@
 package com.example.farid.codersappdemo.contest;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -30,6 +34,7 @@ import android.support.v7.util.SortedList;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
@@ -41,6 +46,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.jlmd.animatedcircleloadingview.AnimatedCircleLoadingView;
+import com.mingle.sweetpick.BlurEffect;
+import com.mingle.sweetpick.CustomDelegate;
+import com.mingle.sweetpick.SweetSheet;
 import com.stone.vega.library.VegaLayoutManager;
 
 import org.jsoup.Jsoup;
@@ -73,60 +81,140 @@ public class main_contest extends AppCompatActivity {
     CoordinatorLayout main_contest;
     RelativeLayout activity_loading;
 
-    public LinearLayout faceook, whatsapp, telegram, email, googleplus, messenger, bottom_she, share_bottom_sheet;
+    public LinearLayout faceook, whatsapp, telegram, email, googleplus, messenger, bottom_she;
+    public RelativeLayout share_bottom_sheet;
     public BottomSheetBehavior bottomSheetBehavior;
     RecyclerView recyclerView;
     private Context mContext = this;
     private AnimatedCircleLoadingView animatedCircleLoadingView;
     CoordinatorLayout coordinatorLayout;
+    SweetSheet mSweetSheet3;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_contest);
-
         setTitle("Contest's List");
 
         FindVIewByID();
 
-        bottomSheetBehavior = BottomSheetBehavior.from(share_bottom_sheet);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        RelativeLayout rl = findViewById(R.id.contest_layout);
 
         All_Contest_list = (List<ContestActivity>) getIntent().getSerializableExtra("list");
 
+        mSweetSheet3 = new SweetSheet(rl);
+        CustomDelegate customDelegate = new CustomDelegate(true, CustomDelegate.AnimationType.DuangLayoutAnimation);
+        View view = LayoutInflater.from(this).inflate(R.layout.bottom_sheet_share, null, false);
+        customDelegate.setCustomView(view);
+        customDelegate.setContentHeight(710);
+        mSweetSheet3.setDelegate(customDelegate);
+
         SetAdapter();
 
-        final Snackbar snackbar = Snackbar.make(coordinatorLayout, "List may corrupted for more accurate result reload the page", Snackbar.LENGTH_INDEFINITE);
+        view.findViewById(R.id.facebook_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSweetSheet3.toggle();
+                Toast.makeText(main_contest.this, "Facebook share button is clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        view.findViewById(R.id.whatsapp_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSweetSheet3.toggle();
+                Toast.makeText(main_contest.this, "Whatsapp share button is clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        view.findViewById(R.id.telegram_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSweetSheet3.toggle();
+                Toast.makeText(main_contest.this, "Telegram share button is clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        view.findViewById(R.id.messenger_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSweetSheet3.toggle();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,All_Contest_list.get(position).contest_link);
+                sendIntent.setType("text/plain");
+                sendIntent.setPackage("com.facebook.orca");
+                try {
+                    startActivity(sendIntent);
+                }
+                catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(main_contest.this,"Please Install Facebook Messenger", Toast.LENGTH_LONG).show();
+                }
+                //Toast.makeText(main_contest.this, "Messenger share button is clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        view.findViewById(R.id.googleplus_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSweetSheet3.toggle();
+                Toast.makeText(main_contest.this, "Google+ share button is clicked", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        view.findViewById(R.id.email_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSweetSheet3.toggle();
+                Toast.makeText(main_contest.this, "Email share button is clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        /*final Snackbar snackbar = Snackbar.make(coordinatorLayout, "List may corrupted for more accurate result reload the page", Snackbar.LENGTH_INDEFINITE);
         snackbar.setAction("OKAY", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 snackbar.dismiss();
             }
         });
-        snackbar.show();
+        snackbar.show();*/
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReciver, new IntentFilter("Pass"));
     }
+    public void SweetSheetOnClickListener(){
+
+    }
+    public BroadcastReceiver mMessageReciver = new BroadcastReceiver() {
+        // Helpful link for this: https://stackoverflow.com/questions/35008860/how-to-pass-values-from-recycleadapter-to-mainactivity-or-other-activities?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            position = intent.getIntExtra("position", 0);
+        }
+    };
     public void SetAdapter(){
-        RecyclerAdapter myAdapter = new RecyclerAdapter(mContext, All_Contest_list, faceook, whatsapp, telegram, googleplus, email, messenger, bottomSheetBehavior, share_bottom_sheet);
+        RecyclerAdapter myAdapter = new RecyclerAdapter(mContext, All_Contest_list, faceook, whatsapp, telegram, googleplus, email, messenger, mSweetSheet3, share_bottom_sheet);
         recyclerView.setLayoutManager(new VegaLayoutManager());
         recyclerView.setAdapter(myAdapter);
         //recyclerView.setNestedScrollingEnabled(false);
         recyclerView.smoothScrollToPosition(0);
     }
     public void FindVIewByID(){
-        faceook = findViewById(R.id.facebook_share);
-        whatsapp = findViewById(R.id.whatsapp_share);
-        telegram = findViewById(R.id.telegram_share);
-        googleplus = findViewById(R.id.googleplus_share);
-        messenger = findViewById(R.id.messenger_share);
-        email = findViewById(R.id.email_share);
-        share_bottom_sheet = findViewById(R.id.share_bottom_sheet);
+        View view = LayoutInflater.from(main_contest.this).inflate(R.layout.bottom_sheet_share, null, false);
+
+        faceook = view.findViewById(R.id.facebook_share);
+        whatsapp = view.findViewById(R.id.whatsapp_share);
+        telegram = view.findViewById(R.id.telegram_share);
+        googleplus = view.findViewById(R.id.googleplus_share);
+        messenger = view.findViewById(R.id.messenger_share);
+        email = view.findViewById(R.id.email_share);
+        share_bottom_sheet = view.findViewById(R.id.share_bottom_sheet);
         recyclerView = findViewById(R.id.recyclerview);
-        coordinatorLayout = findViewById(R.id.contest_layout);
+        //coordinatorLayout = findViewById(R.id.contest_layout);
     }
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(main_contest.this, MainActivity.class));
+        if (mSweetSheet3.isShow()) {
+            mSweetSheet3.dismiss();
+        } else {
+            startActivity(new Intent(main_contest.this, MainActivity.class));
+        }
     }
     public class BackgroundRefreshTask extends AsyncTask<Void, Void, Void> {
 
