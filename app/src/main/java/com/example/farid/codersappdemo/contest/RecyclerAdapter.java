@@ -70,16 +70,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.recycl
 
             avi=  view.findViewById(R.id.avi);
 
+            tv.setBackgroundColor(Color.parseColor("#000000"));
             if(viewType == 1) {
                 avi.setIndicator("BallScaleMultipleIndicator");
                 avi.show();
-                tv.setBackgroundColor(Color.parseColor("#000000"));
             } else {
                 avi.setVisibility(View.GONE);
-                //int red = Color.parseColor("#FF4EA184");
-                int red = Color.parseColor("#e4000000");
-                tv.setBackgroundColor(red);
-                //background_anim.stop();
             }
             return new recyclerViewHolder(view);
         }

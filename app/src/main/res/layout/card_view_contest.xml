@@ -19,7 +19,8 @@
         android:longClickable="true"
         android:id="@+id/card_view"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardElevation="10dp">
+        app:cardElevation="10dp"
+        app:cardBackgroundColor="@color/black">
 
         <RelativeLayout
             android:id="@+id/contest_name_layout"
@@ -61,6 +62,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="5dp"
+            android:background="#e3ffffff"
             android:layout_marginTop="30dp">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,7 +75,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_margin="5dp"
-                    android:background="#fff"
                     android:src="@drawable/codeforces" />
 
                 <View
@@ -102,6 +103,7 @@
                             android:layout_weight="1"
                             android:text="START: "
                             android:textSize="12sp"
+                            android:textColor="@color/black"
                             android:textStyle="bold" />
 
                         <TextView
@@ -122,6 +124,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="4"
                             android:paddingLeft="5dp"
+                            android:textColor="@color/black"
                             android:text="Apr 2018 (21:30:00)"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -151,6 +154,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:text="END: "
+                            android:textColor="@color/black"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -174,6 +178,7 @@
                             android:paddingLeft="5dp"
                             android:text="Apr 2018 (21:30:00)"
                             android:textSize="16sp"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
                             app:autoSizeMaxTextSize="16sp"
                             app:autoSizeMinTextSize="10sp"

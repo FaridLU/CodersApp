@@ -255,7 +255,7 @@ public class loading_activity extends AppCompatActivity {
                     String end_information = end_date_information.substring(4, 7) + " " + end_date_information.substring(le - 4, le) + " " + end_date_information.substring(11, 20);
                     end_information = end_information.substring(0, end_information.length()-4);
 
-                    All_Contest_list.add(new ContestActivity(start_date, start_information, end_date, end_information, contest_name, contest_link, R.drawable.codeforces, type, "codeforces"));
+                    All_Contest_list.add(new ContestActivity(start_date, start_information, end_date, end_information, contest_name, contest_link, R.drawable.codeforces_round, type, "codeforces"));
                     //System.out.println("Codefoces -> 2 ");
                 }
 
@@ -325,7 +325,7 @@ public class loading_activity extends AppCompatActivity {
                             EndTime = EndTime.substring(0, 5);
                             StartTime = StartTime.substring(0, 5);
 
-                            All_Contest_list.add(new ContestActivity(arr[1], StartDate + " " + StartTime, arr[5], EndDate + " " + EndTime , ContestName, ContestLink, R.drawable.codechef, k+1, "codechef"));
+                            All_Contest_list.add(new ContestActivity(arr[1], StartDate + " " + StartTime, arr[5], EndDate + " " + EndTime , ContestName, ContestLink, R.drawable.codechef_round, k+1, "codechef"));
                         }
                     }
                 }catch (Exception e) {

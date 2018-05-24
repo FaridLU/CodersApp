@@ -7,12 +7,18 @@
     android:orientation="vertical"
     tools:context=".contest.main_contest"
     android:id="@+id/contest_layout"
-    android:background="#041d40">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
+    android:background="#546E7A">
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/pullRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        app:refreshType="circles">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </com.baoyz.widget.PullRefreshLayout>
+
 
 </RelativeLayout>

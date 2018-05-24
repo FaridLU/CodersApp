@@ -15,6 +15,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.example.farid.codersappdemo.MainActivity;
 import com.example.farid.codersappdemo.R;
 import android.annotation.SuppressLint;
@@ -98,6 +99,8 @@ public class main_contest extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
     SweetSheet mSweetSheet3;
     private int position;
+    PullRefreshLayout pullRefreshLayout;
+    RecyclerAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +123,14 @@ public class main_contest extends AppCompatActivity {
         mSweetSheet3.setBackgroundEffect(new BlurEffect(8));
 
         SetAdapter();
+
+        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //pullRefreshLayout.setRefreshing(true);
+                new BackgroundRefreshTask().execute();
+            }
+        });
 
         view.findViewById(R.id.facebook_share).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -287,11 +298,11 @@ public class main_contest extends AppCompatActivity {
         }
     };
     public void SetAdapter(){
-        RecyclerAdapter myAdapter = new RecyclerAdapter(mContext, All_Contest_list, faceook, whatsapp, telegram, googleplus, email, messenger, mSweetSheet3, share_bottom_sheet);
+        myAdapter = new RecyclerAdapter(mContext, All_Contest_list, faceook, whatsapp, telegram, googleplus, email, messenger, mSweetSheet3, share_bottom_sheet);
         recyclerView.setLayoutManager(new VegaLayoutManager());
         recyclerView.setAdapter(myAdapter);
-        //recyclerView.setNestedScrollingEnabled(false);
         recyclerView.smoothScrollToPosition(0);
+        //recyclerView.setNestedScrollingEnabled(false); // Hide
     }
     public void FindVIewByID(){
         View view = LayoutInflater.from(main_contest.this).inflate(R.layout.bottom_sheet_share, null, false);
@@ -304,7 +315,7 @@ public class main_contest extends AppCompatActivity {
         email = view.findViewById(R.id.email_share);
         share_bottom_sheet = view.findViewById(R.id.share_bottom_sheet);
         recyclerView = findViewById(R.id.recyclerview);
-        //coordinatorLayout = findViewById(R.id.contest_layout);
+        pullRefreshLayout = findViewById(R.id.pullRefresh);
     }
 
     @Override
@@ -326,12 +337,15 @@ public class main_contest extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            pullRefreshLayout.setRefreshing(false);
+            myAdapter.notifyDataSetChanged();
             // After complete sync
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             // Do somthing while collecting data
+            All_Contest_list = new ArrayList<>();
             make_list_for_Codeforces();
             make_list_for_CodeChef();
             Arrange_Contest_List();
@@ -421,7 +435,7 @@ public class main_contest extends AppCompatActivity {
                 String end_information = end_date_information.substring(4, 7) + " " + end_date_information.substring(le - 4, le) + " " + end_date_information.substring(11, 20);
                 end_information = end_information.substring(0, end_information.length()-4);
 
-                All_Contest_list.add(new ContestActivity(start_date, start_information, end_date, end_information, contest_name, contest_link, R.drawable.codeforces, type, "codeforces"));
+                All_Contest_list.add(new ContestActivity(start_date, start_information, end_date, end_information, contest_name, contest_link, R.drawable.codeforces_round, type, "codeforces"));
                 //System.out.println("Codefoces -> 2 ");
             }
 
@@ -491,7 +505,7 @@ public class main_contest extends AppCompatActivity {
                     EndTime = EndTime.substring(0, 5);
                     StartTime = StartTime.substring(0, 5);
 
-                    All_Contest_list.add(new ContestActivity(arr[1], StartDate + " " + StartTime, arr[5], EndDate + " " + EndTime , ContestName, ContestLink, R.drawable.codechef, k+1, "codechef"));
+                    All_Contest_list.add(new ContestActivity(arr[1], StartDate + " " + StartTime, arr[5], EndDate + " " + EndTime , ContestName, ContestLink, R.drawable.codechef_round, k+1, "codechef"));
                 }
             }
         }catch (Exception e) {
