@@ -1,9 +1,14 @@
 package com.example.farid.codersappdemo.friends;
 
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +20,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class friend_list extends AppCompatActivity {
+public class friend_list extends Fragment implements View.OnClickListener{
 
     CircleImageView circleImageView;
     ImageView friend_img;
@@ -24,14 +29,17 @@ public class friend_list extends AppCompatActivity {
     List<FriendActivity> Friend_List = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friend_list);
 
-        circleImageView = findViewById(R.id.friend_image);
-        friend_img = findViewById(R.id.friend_image);
-        friend_name_tv = findViewById(R.id.friend_name);
-        getFriend_institute_tv = findViewById(R.id.friend_institute);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_friend_list, container, false);
+        RecyclerView recyclerViewFriend = view.findViewById(R.id.recyclerview_friend);
+        friend_RecyclerAdapter friend_adapter = new friend_RecyclerAdapter(Friend_List, getActivity());
 
         Friend_List.add(new FriendActivity("Ashraful Haque Chy", "Leading University, Sylhet", "ASH_9353", "the_badcoder", R.drawable.man));
         Friend_List.add(new FriendActivity("Araf Al Jami", "Leading University, Sylhet", "CLown1331", "clown1331", R.drawable.man));
@@ -49,13 +57,28 @@ public class friend_list extends AppCompatActivity {
         Friend_List.add(new FriendActivity("Sayed Al Mahdi", "Leading University, Sylhet", "the_badcoder", "sayedalmahdi", R.drawable.man));
         Friend_List.add(new FriendActivity("Farid ul Islam Chy", "Leading University, Sylhet", "_FariD_", "fake_death", R.drawable.man));
 
-        RecyclerView recyclerViewFriend = findViewById(R.id.recyclerview_friend);
-        friend_RecyclerAdapter friend_adapter = new friend_RecyclerAdapter(Friend_List, this);
 
         recyclerViewFriend.setLayoutManager(new VegaLayoutManager());
         recyclerViewFriend.setAdapter(friend_adapter);
         recyclerViewFriend.smoothScrollToPosition(0);
+        return view;
     }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        circleImageView = getView().findViewById(R.id.friend_image);
+        friend_img = getView().findViewById(R.id.friend_image);
+        friend_name_tv = getView().findViewById(R.id.friend_name);
+        getFriend_institute_tv = getView().findViewById(R.id.friend_institute);
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
     public class FriendActivity {
 
         public String friend_name, friend_institue, codeforcesID, codechefID;

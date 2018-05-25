@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -35,7 +38,9 @@ import android.support.v7.util.SortedList;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.LinearLayout;
@@ -68,7 +73,7 @@ import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-public class loading_activity extends AppCompatActivity {
+public class loading_activity extends Fragment {
 
     private List<ContestActivity> Codeforces_list = new ArrayList<>();
     private List<ContestActivity> CodeChef_list = new ArrayList<>();
@@ -79,24 +84,29 @@ public class loading_activity extends AppCompatActivity {
 
     @SuppressLint("WrongConstant")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loading);
 
-        getSupportActionBar().hide();
-        animatedCircleLoadingView = findViewById(R.id.circle_loading_view);
-        startLoading();
-        startPercentMockThread();
+    }
 
-        backgroundTask = new BackgroundTask(loading_activity.this);
-        backgroundTask.execute();
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_loading, container, false);
+        return view;
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        this.backgroundTask.cancel(true);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        animatedCircleLoadingView = getView().findViewById(R.id.circle_loading_view);
+        startLoading();
+        startPercentMockThread();
+
+        backgroundTask = new BackgroundTask(getActivity());
+        backgroundTask.execute();
     }
+
 
     public class BackgroundTask extends AsyncTask<Void, Void, Void>{
 
@@ -156,7 +166,7 @@ public class loading_activity extends AppCompatActivity {
     }
 
     private void changePercent(final int percent) {
-        runOnUiThread(new Runnable() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 animatedCircleLoadingView.setPercent(percent);
@@ -165,7 +175,7 @@ public class loading_activity extends AppCompatActivity {
     }
 
     public void resetLoading() {
-        runOnUiThread(new Runnable() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 animatedCircleLoadingView.resetLoading();
