@@ -166,21 +166,25 @@ public class loading_activity extends Fragment {
     }
 
     private void changePercent(final int percent) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                animatedCircleLoadingView.setPercent(percent);
-            }
-        });
+        if(getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    animatedCircleLoadingView.setPercent(percent);
+                }
+            });
+        }
     }
 
     public void resetLoading() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                animatedCircleLoadingView.resetLoading();
-            }
-        });
+        if(getActivity() != null ) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    animatedCircleLoadingView.resetLoading();
+                }
+            });
+        }
     }
 
     public void Arrange_Contest_List() {

@@ -2,7 +2,9 @@ package com.example.farid.codersappdemo;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.ColorLong;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -53,26 +55,79 @@ public class MainActivity extends AppCompatActivity {
         menuItems.add(new MenuItem("My Profile",R.drawable.material_background));
         menuItems.add(new MenuItem("Exit",R.drawable.material_background));
 
-        sNavigationDrawer.setAppbarTitleTV("Dashboard");
+
         sNavigationDrawer.setMenuItemList(menuItems);
-        fragmentClass =  dashboard_activity.class;
+
+
+        String type = getIntent().getStringExtra("type");
+
+
+        if(type != null) {
+            switch (type) {
+                case "contests": {
+                    prev_position=1;
+                    sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
+                    sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
+                    sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
+                    sNavigationDrawer.setAppbarTitleTV("Contests");
+                    fragmentClass =  loading_activity.class;
+                    break;
+                }
+                case "friends" : {
+                    prev_position=2;
+                    sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
+                    sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
+                    sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
+                    sNavigationDrawer.setAppbarTitleTV("Friends");
+                    fragmentClass =  friend_list.class;
+                    break;
+                }
+                case "ranking" : {
+                    prev_position=3;
+                    sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
+                    sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
+                    sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
+                    sNavigationDrawer.setAppbarTitleTV("Ranking");
+                    fragmentClass =  friend_list.class;
+                    break;
+                }
+                case "calculator" : {
+                    prev_position=4;
+                    sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
+                    sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
+                    sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
+                    sNavigationDrawer.setAppbarTitleTV("Calculator");
+                    fragmentClass =  friend_list.class;
+                    break;
+                }
+                case "myprofile" : {
+                    prev_position=5;
+                    sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
+                    sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
+                    sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
+                    sNavigationDrawer.setAppbarTitleTV("My Profile");
+                    fragmentClass =  friend_list.class;
+                    break;
+                }
+            }
+        } else {
+            prev_position= 0;
+            sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
+            sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
+            sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
+            sNavigationDrawer.setAppbarTitleTV("Dashboard");
+            fragmentClass =  dashboard_activity.class;
+        }
 
         try {
-            Log.d("tagtag", "mainactivity");
-
             fragment = (Fragment) fragmentClass.newInstance();
-            Log.d("tagtag", "initialization complete");
         } catch (Exception e) {
-            System.out.println( "catch e hamaise");
             e.printStackTrace();
         }
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.frameLayout, fragment).commit();
         }
-
-
-
 
         sNavigationDrawer.setOnMenuItemClickListener(new SNavigationDrawer.OnMenuItemClickListener() {
             @Override
@@ -82,17 +137,49 @@ public class MainActivity extends AppCompatActivity {
                 switch (position){
                     case 0:{
                         prev_position= 0;
+                        sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
+                        sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
+                        sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                         fragmentClass = dashboard_activity.class;
                         break;
                     }
                     case 1:{
                         prev_position= 1;
+                        sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
+                        sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
+                        sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                         fragmentClass = loading_activity.class;
                         break;
                     }
                     case 2:{
                         prev_position= 2;
-                        System.out.println("friend paisi");
+                        sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
+                        sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
+                        sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
+                        fragmentClass = friend_list.class;
+                        break;
+                    }
+                    case 3:{
+                        prev_position= 3;
+                        sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
+                        sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
+                        sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
+                        fragmentClass = friend_list.class;
+                        break;
+                    }
+                    case 4:{
+                        prev_position= 4;
+                        sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
+                        sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
+                        sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
+                        fragmentClass = friend_list.class;
+                        break;
+                    }
+                    case 5:{
+                        prev_position= 5;
+                        sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
+                        sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
+                        sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                         fragmentClass = friend_list.class;
                         break;
                     }
@@ -116,20 +203,16 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onDrawerClosing(){
-                        System.out.println("Drawer closed");
 
                         try {
                             fragment = (Fragment) fragmentClass.newInstance();
-                            System.out.println("close howar bade try");
                         } catch (Exception e) {
-                            System.out.println("close howar bade catch");
                             e.printStackTrace();
                         }
 
                         if (fragment != null) {
                             FragmentManager fragmentManager = getSupportFragmentManager();
                             fragmentManager.beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.frameLayout, fragment).commit();
-
                         }
                     }
 
@@ -150,42 +233,59 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        final AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(MainActivity.this, android.R.style.Theme_Material_Dialog_Alert);
-        } else {
-            builder = new AlertDialog.Builder(MainActivity.this);
-        }
-        builder.setTitle("Close app")
-                .setMessage("Are you sure you want to close this app?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                MainActivity.this.finishAffinity();
+        if(sNavigationDrawer.isDrawerOpen()) {
+            final AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(MainActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(MainActivity.this);
             }
-        });
-        builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-                if (fragment != null) {
-                    try {
-                        fragment = (Fragment) fragmentClass.newInstance();
-                    } catch (InstantiationException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                    if(prev_position == 0) sNavigationDrawer.setAppbarTitleTV("Dashboard");
-                    else if(prev_position == 1) sNavigationDrawer.setAppbarTitleTV("Contests");
-                    else if(prev_position == 2) sNavigationDrawer.setAppbarTitleTV("Friends");
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    fragmentManager.beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.frameLayout, fragment).commit();
-
+            builder.setTitle("Close app")
+                    .setMessage("Are you sure you want to close this app?");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    MainActivity.this.finishAffinity();
                 }
+            });
+            builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                    if (fragment != null) {
+                        try {
+                            fragment = (Fragment) fragmentClass.newInstance();
+                        } catch (InstantiationException e) {
+                            e.printStackTrace();
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                        if(prev_position == 0) sNavigationDrawer.setAppbarTitleTV("Dashboard");
+                        else if(prev_position == 1) sNavigationDrawer.setAppbarTitleTV("Contests");
+                        else if(prev_position == 2) sNavigationDrawer.setAppbarTitleTV("Friends");
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        fragmentManager.beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.frameLayout, fragment).commit();
+
+                    }
+                }
+            });
+            builder.show();
+        } else {
+            if(prev_position == 0) {
+                sNavigationDrawer.openDrawer();
+            } else {
+                fragmentClass = dashboard_activity.class;
+                try {
+                    fragment = (Fragment) fragmentClass.newInstance();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.frameLayout, fragment).commit();
             }
-        });
-        builder.show();
+        }
     }
 
 

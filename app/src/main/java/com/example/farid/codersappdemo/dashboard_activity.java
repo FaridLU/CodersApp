@@ -16,7 +16,7 @@ import com.example.farid.codersappdemo.friends.friend_list;
 
 public class dashboard_activity extends Fragment implements View.OnClickListener {
 
-    CardView contests_card, friends_card, ranking_card, calculator_card, settings_card;
+    CardView contests_card, friends_card, ranking_card, calculator_card, my_profile_card;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,14 +41,14 @@ public class dashboard_activity extends Fragment implements View.OnClickListener
         friends_card = v.findViewById(R.id.friends_card);
         ranking_card = v.findViewById(R.id.ranking_card);
         calculator_card = v.findViewById(R.id.calculator_card);
-        settings_card = v.findViewById(R.id.settings_card);
+        my_profile_card = v.findViewById(R.id.my_profile_card);
 
 
         contests_card.setOnClickListener(this);
         friends_card.setOnClickListener(this);
         ranking_card.setOnClickListener(this);
         calculator_card.setOnClickListener(this);
-        settings_card.setOnClickListener(this);
+        my_profile_card.setOnClickListener(this);
 
     }
     @Override
@@ -56,11 +56,11 @@ public class dashboard_activity extends Fragment implements View.OnClickListener
         Intent intent;
 
         switch (v.getId()) {
-            case R.id.contests_card: intent = new Intent(getActivity(), loading_activity.class); startActivity(intent); break;
-            case R.id.friends_card: intent = new Intent(getActivity(), friend_list.class); startActivity(intent);break;
-            case R.id.ranking_card: intent = new Intent(getActivity(), loading_activity.class);startActivity(intent);break;
-            case R.id.calculator_card: intent = new Intent(getActivity(), loading_activity.class);startActivity(intent);break;
-            case R.id.settings_card: intent = new Intent(getActivity(), loading_activity.class);startActivity(intent);break;
+            case R.id.contests_card: intent = new Intent(getActivity(), MainActivity.class); intent.putExtra("type","contests"); startActivity(intent); break;
+            case R.id.friends_card: intent = new Intent(getActivity(), MainActivity.class); intent.putExtra("type","friends"); startActivity(intent);break;
+            case R.id.ranking_card: intent = new Intent(getActivity(), MainActivity.class); intent.putExtra("type","ranking"); startActivity(intent);break;
+            case R.id.calculator_card: intent = new Intent(getActivity(), MainActivity.class); intent.putExtra("type","calculator"); startActivity(intent);break;
+            case R.id.my_profile_card: intent = new Intent(getActivity(), MainActivity.class); intent.putExtra("type","myprofile"); startActivity(intent);break;
         }
 
     }
