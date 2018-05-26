@@ -5,7 +5,7 @@
     <color name="colorPrimaryDark">#09090a</color>
     <color name="white">#ffffff</color>
     <color name="loadingBackground">#8db3c2</color>
-    <color name="darkwhite">#ababab</color>
+    <color name="darkwhite">#c9c8c8</color>
     <color name="backgroundcolor">#fcfcfc</color>
     <color name="lightgray">#ededed</color>
     <color name="deeppurple">#7c4dff</color>
@@ -18,10 +18,37 @@
     <color name="black_overlay">#e4000000</color>
     <color name="darkGreen">#e4009e20</color>
 
+    <color name="whiteText">#FFF</color>
+    <color name="grayText">#8b7991</color>
+
+    <color name="disabledBackground">#e1e1e1</color>
+    <color name="blackText">#9E9DA5</color>
+
+    <color name="calc_button_primary_pressed">#0c2829</color>
+    <color name="calc_button_primary_focused">#0c2829</color>
+    <color name="calc_button_primary_default">#154548</color>
+
+    <color name="calc_button_primary_pressed1">#226681</color>
+    <color name="calc_button_primary_focused1">#226681</color>
+    <color name="calc_button_primary_default1">#262d3f</color>
+
+    <color name="calc_button_primary_pressed2">#259348</color>
+    <color name="calc_button_primary_focused2">#D32F2F</color>
+    <color name="calc_button_primary_default2">#181f2f</color>
+
+
+    <color name="calc_button_primary_pressed3">#19702c</color>
+    <color name="calc_button_primary_focused3">#19702c</color>
+    <color name="calc_button_primary_default3">#31a94b</color>
+
+    <color name="calc_button_primary_pressed4">#D32F2F</color>
+    <color name="calc_button_primary_focused4">#D32F2F</color>
+    <color name="calc_button_primary_default4">#262d3f</color>
 
     <color name="indicator_1">#2f5d7e</color>
     <color name="indicator_2">#7aa2c6</color>
     <color name="indicator_3">#66D7B9</color>
     <color name="indicator_4">#FDBC7D</color>
+
 
 </resources>
