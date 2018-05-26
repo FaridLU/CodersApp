@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
                     sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                     sNavigationDrawer.setAppbarTitleTV("Calculator");
-                    fragmentClass =  friend_list.class;
+                    fragmentClass =  calculator_activity.class;
                     break;
                 }
                 case "myprofile" : {
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                         sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
                         sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
                         sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
-                        fragmentClass = friend_list.class;
+                        fragmentClass = calculator_activity.class;
                         break;
                     }
                     case 5:{

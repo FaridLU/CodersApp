@@ -59,7 +59,7 @@ public class dashboard_activity extends Fragment implements View.OnClickListener
             case R.id.contests_card: intent = new Intent(getActivity(), MainActivity.class); intent.putExtra("type","contests"); startActivity(intent); break;
             case R.id.friends_card: intent = new Intent(getActivity(), MainActivity.class); intent.putExtra("type","friends"); startActivity(intent);break;
             case R.id.ranking_card: intent = new Intent(getActivity(), MainActivity.class); intent.putExtra("type","ranking"); startActivity(intent);break;
-            case R.id.calculator_card: intent = new Intent(getActivity(), calculator_activity.class); intent.putExtra("type","calculator"); startActivity(intent);break;
+            case R.id.calculator_card: intent = new Intent(getActivity(), MainActivity.class); intent.putExtra("type","calculator"); startActivity(intent);break;
             case R.id.my_profile_card: intent = new Intent(getActivity(), MainActivity.class); intent.putExtra("type","myprofile"); startActivity(intent);break;
         }
 

@@ -24,7 +24,7 @@
     <color name="disabledBackground">#e1e1e1</color>
     <color name="blackText">#9E9DA5</color>
 
-    <color name="calc_button_primary_pressed">#0c2829</color>
+    <color name="calc_button_primary_pressed">#ab1518</color>
     <color name="calc_button_primary_focused">#0c2829</color>
     <color name="calc_button_primary_default">#154548</color>
 

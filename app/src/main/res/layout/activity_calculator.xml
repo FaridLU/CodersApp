@@ -19,21 +19,32 @@
         <TextView
             android:id="@+id/operatorView"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="60dp"
             android:gravity="right"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
+            android:layout_marginBottom="10dp"
             android:text="" />
-
-        <TextView
-            android:id="@+id/inputView"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:gravity="right"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="0"
-            android:textSize="60px" />
+            android:layout_gravity="right"
+            android:scrollbars="vertical"
+            android:fillViewport="true">
+
+            <TextView
+                android:id="@+id/inputView"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="right"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="0"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="60px" />
+
+        </ScrollView>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,7 +117,7 @@
                     android:layout_marginLeft="1dp"
                     android:layout_marginTop="3dp"
                     android:checked="true"
-                    android:onClick="onBaseRadioClicked"
+                    android:clickable="true"
                     android:text="DEC" />
 
                 <RadioButton
@@ -116,7 +127,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="3dp"
                     android:checked="false"
-                    android:onClick="onBaseRadioClicked"
+                    android:clickable="true"
                     android:text="BIN" />
 
             </RadioGroup>

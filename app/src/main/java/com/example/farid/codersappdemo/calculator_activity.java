@@ -1,11 +1,16 @@
 package com.example.farid.codersappdemo;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -13,13 +18,14 @@ import android.widget.Toast;
 
 import java.util.Stack;
 
-public class calculator_activity extends AppCompatActivity implements View.OnClickListener{
+public class calculator_activity extends Fragment implements View.OnClickListener{
 
     private Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9,
             btnXOR, btnAND, btnOR, btnMOD, btnMultiply, btnDivide, btnMinus, btnPlus, btnEqual, btnCancel;
 
     private TextView operatorView, inputView, decView, binView;
     StringBuilder input;
+    RadioButton radio_dec, radio_bin;
 
     int calculationMode = 0;
     final int BASE_DECIMAL = 0;
@@ -36,12 +42,18 @@ public class calculator_activity extends AppCompatActivity implements View.OnCli
 
     //String operand;
 
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calculator);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        
+        View v = inflater.inflate(R.layout.activity_calculator, container, false);
+        return v;
+    }
 
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         init();
         stack = new Stack<>();
 
@@ -65,44 +77,52 @@ public class calculator_activity extends AppCompatActivity implements View.OnCli
         btnPlus.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         btnEqual.setOnClickListener(this);
+
+        radio_bin.setOnClickListener(this);
+        radio_dec.setOnClickListener(this);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
     }
 
     /**
      * Initializes all the widgets.
      */
     public void init() {
-        btn0 = findViewById(R.id.btn0);
-        btn1 = findViewById(R.id.btn1);
-        btn2 = findViewById(R.id.btn2);
-        btn3 = findViewById(R.id.btn3);
-        btn4 = findViewById(R.id.btn4);
-        btn5 = findViewById(R.id.btn5);
-        btn6 = findViewById(R.id.btn6);
-        btn7 = findViewById(R.id.btn7);
-        btn8 = findViewById(R.id.btn8);
-        btn9 = findViewById(R.id.btn9);
-        btnXOR = findViewById(R.id.btnXOR);
-        btnAND = findViewById(R.id.btnAND);
-        btnOR = findViewById(R.id.btnOR);
-        btnMOD = findViewById(R.id.btnMOD);
-        btnMultiply = findViewById(R.id.btnMultiply);
-        btnDivide = findViewById(R.id.btnDivide);
-        btnMinus = findViewById(R.id.btnMinus);
-        btnPlus = findViewById(R.id.btnPlus);
-        btnCancel = findViewById(R.id.btnCancel);
-        btnEqual = findViewById(R.id.btnEqual);
 
-        operatorView = findViewById(R.id.operatorView);
-        inputView = findViewById(R.id.inputView);
-        decView = findViewById(R.id.decView);
-        binView = findViewById(R.id.binView);
+        View view = getView();
+        
+        btn0 = view.findViewById(R.id.btn0);
+        btn1 = view.findViewById(R.id.btn1);
+        btn2 = view.findViewById(R.id.btn2);
+        btn3 = view.findViewById(R.id.btn3);
+        btn4 = view.findViewById(R.id.btn4);
+        btn5 = view.findViewById(R.id.btn5);
+        btn6 = view.findViewById(R.id.btn6);
+        btn7 = view.findViewById(R.id.btn7);
+        btn8 = view.findViewById(R.id.btn8);
+        btn9 = view.findViewById(R.id.btn9);
+        btnXOR = view.findViewById(R.id.btnXOR);
+        btnAND = view.findViewById(R.id.btnAND);
+        btnOR = view.findViewById(R.id.btnOR);
+        btnMOD = view.findViewById(R.id.btnMOD);
+        btnMultiply = view.findViewById(R.id.btnMultiply);
+        btnDivide = view.findViewById(R.id.btnDivide);
+        btnMinus = view.findViewById(R.id.btnMinus);
+        btnPlus = view.findViewById(R.id.btnPlus);
+        btnCancel = view.findViewById(R.id.btnCancel);
+        btnEqual = view.findViewById(R.id.btnEqual);
+
+        operatorView = view.findViewById(R.id.operatorView);
+        inputView = view.findViewById(R.id.inputView);
+        decView = view.findViewById(R.id.decView);
+        binView = view.findViewById(R.id.binView);
+
+        radio_bin = view.findViewById(R.id.radioBaseBin);
+        radio_dec = view.findViewById(R.id.radioBaseDec);
 
         input = new StringBuilder();
     }
@@ -205,6 +225,8 @@ public class calculator_activity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
 
+        boolean checked = true;
+
         switch (v.getId()) {
 
             case R.id.btn0:
@@ -286,6 +308,21 @@ public class calculator_activity extends AppCompatActivity implements View.OnCli
             case R.id.btnEqual:
                 operandInput(NONE);
                 break;
+
+            case R.id.radioBaseBin:
+                if (checked) {
+                    keypadDisabled();
+                    allClear();
+                    calculationMode = BASE_BINARY;
+                    break;
+                }
+            case R.id.radioBaseDec:
+                if (checked) {
+                    keypadEnabled();
+                    allClear();
+                    calculationMode = BASE_DECIMAL;
+                    break;
+                }
         }
     }
 
@@ -389,7 +426,7 @@ public class calculator_activity extends AppCompatActivity implements View.OnCli
             }
         }
         catch (NumberFormatException e) {
-            Toast.makeText(this, "SUM TING WONG", Toast.LENGTH_SHORT);
+            Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT);
         }
     }
 

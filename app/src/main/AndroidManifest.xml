@@ -31,7 +31,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".submission.sub_recyclerview" />
         <activity android:name=".submission.sub_code_view" />
-        <activity android:name=".calculator_activity"></activity>
     </application>
 
 </manifest>
