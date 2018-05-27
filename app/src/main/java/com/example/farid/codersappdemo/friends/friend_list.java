@@ -41,21 +41,21 @@ public class friend_list extends Fragment implements View.OnClickListener{
         RecyclerView recyclerViewFriend = view.findViewById(R.id.recyclerview_friend);
         friend_RecyclerAdapter friend_adapter = new friend_RecyclerAdapter(Friend_List, getActivity());
 
-        Friend_List.add(new FriendActivity("Ashraful Haque Chy", "Leading University, Sylhet", "ASH_9353", "the_badcoder", R.drawable.man));
-        Friend_List.add(new FriendActivity("Araf Al Jami", "Leading University, Sylhet", "CLown1331", "clown1331", R.drawable.man));
-        Friend_List.add(new FriendActivity("Raihan Hussain Zinuk", "Leading University, Sylhet", "DarkknightRHZ", "darkknightrhz", R.drawable.man));
-        Friend_List.add(new FriendActivity("Mohammad Jamil", "Leading University, Sylhet", "mohammadjamil994", "jamil993", R.drawable.man));
-        Friend_List.add(new FriendActivity("Tareq Aziz khan", "Leading University, Sylhet", "the_badcoder", "the_badcoder", R.drawable.man));
-        Friend_List.add(new FriendActivity("Mahfuz Hasan", "Leading University, Sylhet", "mahfuz.lu", "m4hfuz", R.drawable.man));
-        Friend_List.add(new FriendActivity("Anik Roy", "Leading University, Sylhet", "roy", "anik_roy", R.drawable.man));
-        Friend_List.add(new FriendActivity("Imranuzzaman Imran", "Leading University, Sylhet", "IzZaman", "izzaman", R.drawable.man));
-        Friend_List.add(new FriendActivity("Shamim Ahmed", "Leading University, Sylhet", "shamim03", "shamim003", R.drawable.man));
-        Friend_List.add(new FriendActivity("Ryan Shojib", "Leading University, Sylhet", "factor", "factor", R.drawable.man));
-        Friend_List.add(new FriendActivity("Rasel Ahmed", "Leading University, Sylhet", "RaselAhmed", "elubilu", R.drawable.man));
-        Friend_List.add(new FriendActivity("Mashud Zaman", "Leading University, Sylhet", "MaSh-uD", "mash_ud", R.drawable.man));
-        Friend_List.add(new FriendActivity("Kollol Chakroborty", "Leading University, Sylhet", "cyanomax", "cyanomax", R.drawable.man));
-        Friend_List.add(new FriendActivity("Sayed Al Mahdi", "Leading University, Sylhet", "the_badcoder", "sayedalmahdi", R.drawable.man));
-        Friend_List.add(new FriendActivity("Farid ul Islam Chy", "Leading University, Sylhet", "_FariD_", "fake_death", R.drawable.man));
+        Friend_List.add(new FriendActivity("Ashraful Haque Chy", "Leading University, Sylhet", "ASH_9353", "the_mover", "the_mover", R.drawable.man));
+        Friend_List.add(new FriendActivity("Araf Al Jami", "Leading University, Sylhet", "CLown1331", "clown1331", "clown1331", R.drawable.man));
+        Friend_List.add(new FriendActivity("Raihan Hussain Zinuk", "Leading University, Sylhet", "DarkknightRHZ", "darkknightrhz", "darkknightrhz", R.drawable.man));
+        Friend_List.add(new FriendActivity("Mohammad Jamil", "Leading University, Sylhet", "mohammadjamil994", "jamil993", "jamil993", R.drawable.man));
+        Friend_List.add(new FriendActivity("Tareq Aziz khan", "Leading University, Sylhet", "the_badcoder", "the_badcoder", "the_badcoder", R.drawable.man));
+        Friend_List.add(new FriendActivity("Mahfuz Hasan", "Leading University, Sylhet", "mahfuz.lu", "m4hfuz", "Fake_Death", R.drawable.man));
+        Friend_List.add(new FriendActivity("Anik Roy", "Leading University, Sylhet", "roy", "anik_roy", "Fake_Death", R.drawable.man));
+        Friend_List.add(new FriendActivity("Imranuzzaman Imran", "Leading University, Sylhet", "IzZaman", "izzaman", "Fake_Death", R.drawable.man));
+        Friend_List.add(new FriendActivity("Shamim Ahmed", "Leading University, Sylhet", "shamim03", "shamim003", "Fake_Death", R.drawable.man));
+        Friend_List.add(new FriendActivity("Ryan Shojib", "Leading University, Sylhet", "factor", "factor", "Fake_Death", R.drawable.man));
+        Friend_List.add(new FriendActivity("Rasel Ahmed", "Leading University, Sylhet", "RaselAhmed", "elubilu", "Fake_Death", R.drawable.man));
+        Friend_List.add(new FriendActivity("Mashud Zaman", "Leading University, Sylhet", "MaSh-uD", "mash_ud", "Fake_Death", R.drawable.man));
+        Friend_List.add(new FriendActivity("Kollol Chakroborty", "Leading University, Sylhet", "cyanomax", "cyanomax", "Fake_Death", R.drawable.man));
+        Friend_List.add(new FriendActivity("Sayed Al Mahdi", "Leading University, Sylhet", "the_badcoder", "sayedalmahdi", "Fake_Death", R.drawable.man));
+        Friend_List.add(new FriendActivity("Farid ul Islam Chy", "Leading University, Sylhet", "_FariD_", "fake_death", "Fake_Death", R.drawable.man));
 
 
         recyclerViewFriend.setLayoutManager(new VegaLayoutManager());
@@ -81,14 +81,24 @@ public class friend_list extends Fragment implements View.OnClickListener{
 
     public class FriendActivity {
 
-        public String friend_name, friend_institue, codeforcesID, codechefID;
+        public String friend_name, friend_institue, codeforcesID, codechefID, uvaID;
 
-        public FriendActivity(String friend_name, String friend_institue, String codeforcesID, String codechefID, int friend_image) {
+        public FriendActivity(String friend_name, String friend_institue, String codeforcesID, String codechefID, String uvaID, int friend_image) {
             this.friend_name = friend_name;
             this.friend_institue = friend_institue;
             this.codeforcesID = codeforcesID;
             this.codechefID = codechefID;
             this.friend_image = friend_image;
+            this.uvaID = uvaID;
+        }
+
+        public void setUvaID(String uvaID) {
+            this.uvaID = uvaID;
+        }
+
+        public String getUvaID() {
+
+            return uvaID;
         }
 
         public void setCodeforcesID(String codeforcesID) {

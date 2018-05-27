@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,8 @@ public class friend_RecyclerAdapter extends RecyclerView.Adapter<friend_Recycler
                 intent.putExtra("name", list.get(position).getFriend_name());
                 intent.putExtra("cf_handle", list.get(position).getCodeforcesID());
                 intent.putExtra("cc_handle", list.get(position).getCodechefID());
+                intent.putExtra("uva_handle", list.get(position).getUvaID());
+                Log.d("tagtag2", list.get(position).getUvaID());
                 mContext.startActivity(intent);
 
                 /*Fragment mFragment = null;

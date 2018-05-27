@@ -10,7 +10,6 @@
     app:behavior_hideable="true"
     android:focusable="true"
     android:clickable="true"
-    android:padding="2dp"
     app:behavior_peekHeight="40dp">
 
     <TextView
@@ -34,7 +33,7 @@
         android:padding="5dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:background="?attr/selectableItemBackground"
+        android:background="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:gravity="center_vertical"
@@ -63,7 +62,7 @@
         android:layout_marginLeft="16dp"
         android:padding="5dp"
         android:id="@+id/code_view"
-        android:background="?attr/selectableItemBackground"
+        android:background="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:gravity="center_vertical"

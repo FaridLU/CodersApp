@@ -36,7 +36,7 @@ public class user_profile extends AppCompatActivity
     public Toolbar mToolbar;
 
     public ViewPager viewPager1, viewPager2, viewPager3, viewPager4;
-    public String cf_handle, cc_handle, name;
+    public String cf_handle, cc_handle, name, uva_handle;
     public TextView profile_title, username;
 
     @Override
@@ -53,6 +53,7 @@ public class user_profile extends AppCompatActivity
         name = getIntent().getStringExtra("name");
         cf_handle = getIntent().getStringExtra("cf_handle");
         cc_handle = getIntent().getStringExtra("cc_handle");
+        uva_handle = getIntent().getStringExtra("uva_handle");
 
         addInformationOnProfile();
 
@@ -87,7 +88,6 @@ public class user_profile extends AppCompatActivity
         ModelPagerAdapter adapter4 = new ModelPagerAdapter(getSupportFragmentManager(), manager4);
         viewPager4.setAdapter(adapter4);
 
-        //viewPager.fixScrollSpeed();
 
         // just set viewPager
         springIndicator1.setViewPager(viewPager1);
@@ -115,15 +115,15 @@ public class user_profile extends AppCompatActivity
         List<ViewPagerAttr> list = new ArrayList<>();
 
         if(type == 1 ) {
-            list.add(new ViewPagerAttr(R.drawable.ranking, "Rating", "1745", type, 1, null, null));
-            list.add(new ViewPagerAttr(R.drawable.man, "Total Problem Solved", "1745", type, 1, null, null));
-            list.add(new ViewPagerAttr(R.drawable.browse, "demo1", "1745", type, 1, null, null));
-            list.add(new ViewPagerAttr(R.drawable.calculator, "demo 2", "1745", type, 1, null, null));
+            list.add(new ViewPagerAttr(R.drawable.ranking, "Rating", "1745", type, 1, null, null, null));
+            list.add(new ViewPagerAttr(R.drawable.man, "Total Problem Solved", "1745", type, 1, null, null, null));
+            list.add(new ViewPagerAttr(R.drawable.browse, "Type of Coder", "Blue Coder", type, 1, null, null, null));
+            list.add(new ViewPagerAttr(R.drawable.calculator, "demo 2", "1745", type, 1, null, null, null));
         } else {
-            list.add(new ViewPagerAttr(R.drawable.combined, "Recent Activities", null, type, 1, cf_handle, cc_handle));
-            list.add(new ViewPagerAttr(R.drawable.codeforces_full, "Codeforces Activities", null, type, 2, cf_handle, cc_handle));
-            list.add(new ViewPagerAttr(R.drawable.codechef_full, "Codechef Activities", null, type, 3, cf_handle, cc_handle));
-            list.add(new ViewPagerAttr(R.drawable.uva, "UVA Activities", null, type, 4, cf_handle, cc_handle));
+            list.add(new ViewPagerAttr(R.drawable.combined, "Recent Activities", null, type, 1, cf_handle, cc_handle, uva_handle));
+            list.add(new ViewPagerAttr(R.drawable.codeforces_full, "Codeforces Activities", null, type, 2, cf_handle, cc_handle, uva_handle));
+            list.add(new ViewPagerAttr(R.drawable.codechef_full, "Codechef Activities", null, type, 3, cf_handle, cc_handle, uva_handle));
+            list.add(new ViewPagerAttr(R.drawable.uva, "UVA Activities", null, type, 4, cf_handle, cc_handle, uva_handle));
         }
         return list;
     }
@@ -195,8 +195,8 @@ public class user_profile extends AppCompatActivity
 }
 class ViewPagerAttr implements Serializable {
     public transient int vp_img, vp_type, vp_index;
-    public transient String vp_title, vp_ans, vp_cf_handle, vp_cc_handle;
-    ViewPagerAttr(int vp_img, String vp_title, String vp_ans, int vp_type, int vp_index, String vp_cf_handle, String vp_cc_handle) {
+    public transient String vp_title, vp_ans, vp_cf_handle, vp_cc_handle, vp_uva_handle;
+    ViewPagerAttr(int vp_img, String vp_title, String vp_ans, int vp_type, int vp_index, String vp_cf_handle, String vp_cc_handle, String vp_uva_handle) {
         this.vp_img = vp_img;
         this.vp_title = vp_title;
         this.vp_ans = vp_ans;
@@ -204,5 +204,6 @@ class ViewPagerAttr implements Serializable {
         this.vp_index = vp_index;
         this.vp_cf_handle = vp_cf_handle;
         this.vp_cc_handle = vp_cc_handle;
+        this.vp_uva_handle = vp_uva_handle;
     }
 }

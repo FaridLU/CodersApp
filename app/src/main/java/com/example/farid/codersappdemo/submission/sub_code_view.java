@@ -26,12 +26,16 @@ public class sub_code_view extends AppCompatActivity {
     TextView problem_name_on_codeview, author;
     String CODE = null, link = null, judge = null;
 
+
     @SuppressLint("WrongViewCast")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sub_code_view);
+
+        getSupportActionBar().hide();
+
         codeView= findViewById(R.id.code_view);
         problem_name_on_codeview = findViewById(R.id.problem_name_on_codeview);
         author = findViewById(R.id.author);

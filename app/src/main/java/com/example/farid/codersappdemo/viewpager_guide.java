@@ -72,6 +72,7 @@ public class viewpager_guide extends Fragment {
 
             final String cf_handle = viewPagerAttr.vp_cf_handle;
             final String cc_handle = viewPagerAttr.vp_cc_handle;
+            final String uva_handle = viewPagerAttr.vp_uva_handle;
 
             go.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -83,6 +84,7 @@ public class viewpager_guide extends Fragment {
                             intent.putExtra("type", query_ty);
                             intent.putExtra("cf_username", cf_handle);
                             intent.putExtra("cc_username", cc_handle);
+                            intent.putExtra("uva_handle", uva_handle);
                             startActivity(intent);
                         }
                     }, 3000);

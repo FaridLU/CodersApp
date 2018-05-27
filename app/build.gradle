@@ -48,4 +48,5 @@ dependencies {
     implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
 
     implementation 'com.github.shrikanth7698:Custom-Navigation-Drawer:v0.0.1'
+    implementation 'com.googlecode.json-simple:json-simple:1.1'
 }

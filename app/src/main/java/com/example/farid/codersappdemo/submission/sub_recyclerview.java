@@ -43,7 +43,7 @@ public class sub_recyclerview extends AppCompatActivity {
     RecyclerView recyclerView;
     private EditText Handle;
     private Button mix, codechef, codeforces;
-    private String cf_handle, cc_handle;
+    private String cf_handle, cc_handle, uva_handle;
     ProgressBar progressBar;
     RecyclerView.LayoutManager layoutManager;
     sub_recycler_adapter myAdapter;
@@ -55,7 +55,7 @@ public class sub_recyclerview extends AppCompatActivity {
 
     int ye = 2018, ind = 0; // For Codechef
     int page = 1, index = 1; // For Codeforces
-
+    int uva_index = 0;
 
     @SuppressLint("ResourceAsColor")
 
@@ -63,6 +63,8 @@ public class sub_recyclerview extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_recyclerview);
+
+
         /*Handle = findViewById(R.id.handle);
 
         mix = findViewById(R.id.mix);
@@ -79,6 +81,8 @@ public class sub_recyclerview extends AppCompatActivity {
 
         cf_handle = getIntent().getStringExtra("cf_username");
         cc_handle = getIntent().getStringExtra("cc_username");
+        uva_handle = getIntent().getStringExtra("uva_handle");
+
 
         type = getIntent().getIntExtra("type", 0);
 
@@ -107,8 +111,9 @@ public class sub_recyclerview extends AppCompatActivity {
                 }
             }
         });
-
+        Log.d("codechef", "type -> " + type);
         if(type == 1) { // Mix
+            setTitle(" All Submissions");
             ye = 2018; ind = 0; page = 1; index = 1;
             myAdapter = new sub_recycler_adapter(mContext, Handle, Mix, bottomSheetBehavior, problem_statement, source_code, bottom_sheet_layout);
             layoutManager = new LinearLayoutManager(mContext);
@@ -117,6 +122,7 @@ public class sub_recyclerview extends AppCompatActivity {
 
             new BackgroundParsing(sub_recyclerview.this, 1, 1).execute();
         } else if(type == 2) { // Codeforces
+            setTitle(" Codeforces Submissions");
             ye = 2018; ind = 0; page = 1; index = 1;
             myAdapter = new sub_recycler_adapter(mContext, Handle, Codeforces, bottomSheetBehavior, problem_statement, source_code, bottom_sheet_layout);
             layoutManager = new LinearLayoutManager(mContext);
@@ -125,13 +131,14 @@ public class sub_recyclerview extends AppCompatActivity {
 
             new BackgroundParsing(sub_recyclerview.this, 1, 2).execute();
         } else if(type == 3) { // Codechef
+            setTitle(" Codechef Submissions");
             ye = 2018; ind = 0; page = 1; index = 1;
             myAdapter = new sub_recycler_adapter(mContext, Handle, Codechef, bottomSheetBehavior, problem_statement, source_code, bottom_sheet_layout);
             layoutManager = new LinearLayoutManager(mContext);
             recyclerView.setLayoutManager(new LinearLayoutManager(sub_recyclerview.this));
             recyclerView.setAdapter(myAdapter);
 
-            new BackgroundParsing(sub_recyclerview.this, 1, 3).execute();
+            new BackgroundParsing(sub_recyclerview.this, 1, 3).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else if(type == 4) { // UVA
 
         }
@@ -145,11 +152,13 @@ public class sub_recyclerview extends AppCompatActivity {
         BackgroundParsing(Context activity, int progress_type, int judge_type) {
             dialog = new ProgressDialog(activity);
             mContext = activity;
+            Log.d("codechef", "judge type-> " + judge_type);
             this.progress_type = progress_type;
         }
 
         @Override
         protected void onPreExecute() {
+            Log.d("codechef", "One aise **");
             if(progress_type == 1) {
                 dialog.setTitle("Loading...");
                 dialog.setMessage("Please wait.");
@@ -177,6 +186,7 @@ public class sub_recyclerview extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            Log.d("codechef", "One aise ** + -> " + type);
             if(type == 1) { // Code for Mix
                 Mix.addAll(make_for_mix());
             } else if(type == 2) { // Code for Codeforces
@@ -184,6 +194,7 @@ public class sub_recyclerview extends AppCompatActivity {
                 Codeforces.addAll(make_for_codeforces());
             } else if(type == 3) { // Code for Codechef
                 len = Codechef.size();
+                Log.d("codechef", "do in background e  **");
                 Codechef.addAll(make_for_codechef());
             }
             return null;
@@ -197,8 +208,6 @@ public class sub_recyclerview extends AppCompatActivity {
 
         list.addAll(make_for_codechef());
         list.addAll(make_for_codechef());
-        list.addAll(make_for_codechef());
-        list.addAll(make_for_codeforces());
         list.addAll(make_for_codeforces());
         list.addAll(make_for_codeforces());
 
@@ -314,9 +323,12 @@ public class sub_recyclerview extends AppCompatActivity {
             @Override
             public void run() {*/
         List<submission_activity> list = new ArrayList<>();
+        Log.d("codechef", "function e aise **");
         try {
             int val = 0;
-            for(int y=ye; ; y--) {
+            Log.d("codechef", "One aise **");
+            Log.d("codechef", "ye = "+ ye + " ind = " + ind);
+            for(int y=ye; y >= 2016; y--) {
                 String year = Integer.toString(y);
 
                 String url = "https://www.codechef.com/submissions?sort_by=All&sorting_order=asc&language=All&status=All&year="+year+"&handle="+cc_handle+"&pcode=&ccode=&Submit=GO";
@@ -324,11 +336,12 @@ public class sub_recyclerview extends AppCompatActivity {
 
                 Elements el = doc.getElementsByClass("dataTable").select("tbody").select("tr");
 
+                Log.d("codechef", "ye = "+ ye + " y= " + y + " el -> " + el.size() + " url -> " + url);
                 for(int i = (ye == y) ? ind: 0; i<el.size(); i++) {
                     ye = y;
                     ind = i+1;
                     val++;
-
+                    Log.d("codechef", "**");
                     String solution_id = el.get(i).select("td").get(0).text();
                     String solution_time = el.get(i).select("td").get(1).text();
                     String problem_link = el.get(i).select("td").get(4).select("a").attr("abs:href").toString();
