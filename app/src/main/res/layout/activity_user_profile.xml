@@ -103,7 +103,7 @@
                         android:id="@+id/tool_bar4"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:background="?attr/colorPrimary"
+                        android:background="?android:attr/colorPrimary"
                         android:elevation="10dp"
                         android:minHeight="0dp"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -165,7 +165,7 @@
                     <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:background="?attr/colorPrimary"
+                        android:background="?android:attr/colorPrimary"
                         android:elevation="10dp"
                         android:minHeight="0dp"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -223,7 +223,7 @@
                     <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:background="?attr/colorPrimary"
+                        android:background="?android:attr/colorPrimary"
                         android:elevation="10dp"
                         android:minHeight="0dp"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -285,7 +285,7 @@
                         android:id="@+id/tool_bar"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:background="?attr/colorPrimary"
+                        android:background="?android:attr/colorPrimary"
                         android:elevation="10dp"
                         android:minHeight="0dp"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -320,67 +320,6 @@
 
             </android.support.v7.widget.CardView>
 
-
-            <LinearLayout
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:gravity="center">
-                <!--https://github.com/SparkYuan/SubmitButton-->
-                <com.spark.submitbutton.SubmitButton
-                    android:id="@+id/bt1"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="40dp"
-                    android:paddingTop="40dp"
-                    android:text="Submit"
-                    android:clickable="true"
-                    android:textColor="@color/gray"
-                    app:sub_btn_background="@color/white"
-                    app:sub_btn_duration="10000"
-                    app:sub_btn_line_color="@color/green"
-                    app:sub_btn_ripple_color="@color/green"
-                    app:sub_btn_tick_color="@color/white" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:gravity="center">
-                <com.spark.submitbutton.SubmitButton
-                    android:id="@+id/bt2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="40dp"
-                    android:paddingTop="40dp"
-                    android:text="Codeforces recent Activities"
-                    android:clickable="true"
-                    android:textColor="@color/gray"
-                    app:sub_btn_background="@color/white"
-                    app:sub_btn_duration="10000"
-                    app:sub_btn_line_color="@color/green"
-                    app:sub_btn_ripple_color="@color/green"
-                    app:sub_btn_tick_color="@color/white" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
-                <com.spark.submitbutton.SubmitButton
-                    android:id="@+id/bt3"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="40dp"
-                    android:paddingTop="40dp"
-                    android:text="Submit3"
-                    android:clickable="true"
-                    android:textColor="@color/gray"
-                    app:sub_btn_background="@color/white"
-                    app:sub_btn_duration="10000"
-                    app:sub_btn_line_color="@color/green"
-                    app:sub_btn_ripple_color="@color/green"
-                    app:sub_btn_tick_color="@color/white" />
-            </LinearLayout>
-
-
         </LinearLayout>
 
 
@@ -389,7 +328,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/profile_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:layout_anchor="@id/profile_framelayout_title"
         app:theme="@style/ThemeOverlay.AppCompat.Dark"

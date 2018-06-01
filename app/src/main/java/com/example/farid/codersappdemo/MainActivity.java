@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         menuItems.add(new MenuItem("Ranking",R.drawable.material_background));
         menuItems.add(new MenuItem("Calculator",R.drawable.material_background));
         menuItems.add(new MenuItem("My Profile",R.drawable.material_background));
+        menuItems.add(new MenuItem("About",R.drawable.material_background));
         menuItems.add(new MenuItem("Exit",R.drawable.material_background));
 
 
@@ -60,51 +61,38 @@ public class MainActivity extends AppCompatActivity {
 
 
         String type = getIntent().getStringExtra("type");
-
+        sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
+        sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
+        sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
 
         if(type != null) {
             switch (type) {
                 case "contests": {
                     prev_position=1;
-                    sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
-                    sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
-                    sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                     sNavigationDrawer.setAppbarTitleTV("Contests");
                     fragmentClass =  loading_activity.class;
                     break;
                 }
                 case "friends" : {
                     prev_position=2;
-                    sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
-                    sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
-                    sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                     sNavigationDrawer.setAppbarTitleTV("Friends");
                     fragmentClass =  friend_list.class;
                     break;
                 }
                 case "ranking" : {
                     prev_position=3;
-                    sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
-                    sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
-                    sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                     sNavigationDrawer.setAppbarTitleTV("Ranking");
                     fragmentClass =  friend_list.class;
                     break;
                 }
                 case "calculator" : {
                     prev_position=4;
-                    sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
-                    sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
-                    sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                     sNavigationDrawer.setAppbarTitleTV("Calculator");
                     fragmentClass =  calculator_activity.class;
                     break;
                 }
                 case "myprofile" : {
                     prev_position=5;
-                    sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
-                    sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
-                    sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                     sNavigationDrawer.setAppbarTitleTV("My Profile");
                     fragmentClass =  friend_list.class;
                     break;
@@ -112,9 +100,6 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             prev_position= 0;
-            sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
-            sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
-            sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
             sNavigationDrawer.setAppbarTitleTV("Dashboard");
             fragmentClass =  dashboard_activity.class;
         }
@@ -137,53 +122,45 @@ public class MainActivity extends AppCompatActivity {
                 switch (position){
                     case 0:{
                         prev_position= 0;
-                        sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
-                        sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
-                        sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                         fragmentClass = dashboard_activity.class;
                         break;
                     }
                     case 1:{
                         prev_position= 1;
-                        sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
-                        sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
-                        sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                         fragmentClass = loading_activity.class;
                         break;
                     }
                     case 2:{
                         prev_position= 2;
-                        sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
-                        sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
-                        sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                         fragmentClass = friend_list.class;
                         break;
                     }
                     case 3:{
                         prev_position= 3;
-                        sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
-                        sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
-                        sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                         fragmentClass = friend_list.class;
                         break;
                     }
                     case 4:{
                         prev_position= 4;
-                        sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
-                        sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
-                        sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
                         fragmentClass = calculator_activity.class;
                         break;
                     }
                     case 5:{
                         prev_position= 5;
-                        sNavigationDrawer.setAppbarColor(Color.parseColor("#FF1A1A1A"));
-                        sNavigationDrawer.setAppbarTitleTextColor(Color.parseColor("#FFFFFFFF"));
-                        sNavigationDrawer.setMenuiconTintColor(Color.parseColor("#FFFFFFFF"));
-                        fragmentClass = friend_list.class;
+                        Intent intent2 = new Intent(MainActivity.this, user_profile.class);
+                        intent2.putExtra("name", "Farid Ul Islam Chy");
+                        intent2.putExtra("cf_handle", "_FariD_");
+                        intent2.putExtra("cc_handle", "fake_death");
+                        intent2.putExtra("uva_handle", "fake_death");
+                        startActivity(intent2);
                         break;
                     }
                     case 6:{
+                        prev_position = 6;
+                        fragmentClass = about_activity.class;
+                        break;
+                    }
+                    case 7:{
                         onBackPressed();
                         break;
                     }

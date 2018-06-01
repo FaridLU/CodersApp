@@ -102,6 +102,7 @@ public class main_contest extends AppCompatActivity {
     PullRefreshLayout pullRefreshLayout;
     RecyclerAdapter myAdapter;
     Boolean isTop = true;
+    RelativeLayout contest_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -303,14 +304,14 @@ public class main_contest extends AppCompatActivity {
                 //Toast.makeText(main_contest.this, "Email share button is clicked", Toast.LENGTH_SHORT).show();
             }
         });
-        /*final Snackbar snackbar = Snackbar.make(coordinatorLayout, "List may corrupted for more accurate result reload the page", Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackbar = Snackbar.make(contest_layout, "Long Press on any Card to share!", Snackbar.LENGTH_INDEFINITE);
         snackbar.setAction("OKAY", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 snackbar.dismiss();
             }
         });
-        snackbar.show();*/
+        snackbar.show();
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReciver, new IntentFilter("Pass"));
     }
@@ -341,6 +342,7 @@ public class main_contest extends AppCompatActivity {
         share_bottom_sheet = view.findViewById(R.id.share_bottom_sheet);
         recyclerView = findViewById(R.id.recyclerview);
         pullRefreshLayout = findViewById(R.id.pullRefresh);
+        contest_layout = findViewById(R.id.contest_layout);
     }
 
     @Override

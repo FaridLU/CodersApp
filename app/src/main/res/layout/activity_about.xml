@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:background="@color/darkwhite"
+    android:paddingTop="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:gravity="center"
+            >
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="8dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                app:cardCornerRadius="8dp"
+                android:layout_marginBottom="5dp">
+                <LinearLayout
+                    android:layout_marginTop="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="5dp"
+                    android:weightSum="4"
+                    android:padding="15dp"
+                    android:id="@+id/linearLayout2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1.2"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profile_mam"
+                            android:layout_width="100dp"
+                            android:layout_height="105dp"
+                            android:src="@drawable/iffat_mam"
+                            app:civ_border_color="@color/colorPrimaryDark"
+                            app:civ_border_width="2dp"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="3.5"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/guideness"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:text="Made under the guidance of"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginStart="25dp"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+                        <TextView
+
+                            android:id="@+id/sir_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginStart="25dp"
+                            android:text="Iffat Jahan Chowdhury\nLecturer\nDept. of CSE\nLeading University"
+                            android:textAlignment="textStart"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="15sp"
+                            android:gravity="start" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="#0b0538">
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Developed By:"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="fill_horizontal"
+            android:weightSum="2"
+            android:layout_weight="4.7"
+            android:padding="10dp"
+            android:id="@+id/linearLayout3">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:layout_marginRight="15dp"
+                app:cardCornerRadius="10dp"
+                android:layout_gravity="center">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="3"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="#fff">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_farid"
+                        android:layout_width="100dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1.7"
+                        android:src="@drawable/farid"
+                        app:civ_border_color="@color/colorPrimaryDark"
+                        app:civ_border_width="2dp" />
+
+                    <TextView
+                        android:id="@+id/farid_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Md. Farid ul Islam Chy\nBatch: 38\nDept. of CSE\nLeading Univerity, Sylhet"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                app:cardCornerRadius="10dp"
+                android:layout_gravity="center"
+                android:padding="2dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="3"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="#fff">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_ashraf"
+                        android:layout_width="100dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1.7"
+                        android:src="@drawable/ashraf_vai"
+                        app:civ_border_color="@color/colorPrimaryDark"
+                        app:civ_border_width="2dp" />
+
+                    <TextView
+                        android:id="@+id/ashraf_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Md. Ashraful Haque Chy\nBatch: 37\nDept. of CSE\nLeading Univerity, Sylhet"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            app:cardCornerRadius="5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/linearLayout3"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="Source Code:"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textIsSelectable="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_marginTop="2dp"
+                    android:layout_width="110dp"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:id="@+id/textView4"
+                    android:autoLink="web"
+                    android:textColorLink="#232678"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="www.github.com/FaridBD/CodersAppDemo"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textIsSelectable="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
