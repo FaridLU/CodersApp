@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/purple"
+    android:padding="16dp"
+    tools:context=".login.personal_details_activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_pic"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/photocamera"
+            android:layout_marginBottom="20dp"
+            app:civ_border_width="5dp"
+            app:civ_border_color="#000000"/>
+
+        <EditText
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Username"
+            android:drawableLeft="@drawable/profile"
+            android:drawableTint="@color/white"
+            android:drawablePadding="15dp"
+            android:fontFamily="sans-serif-medium"
+            android:inputType="textWebEmailAddress"
+            android:padding="8dp"
+            android:textColorHint="@color/white"/>
+
+        <EditText
+            android:id="@+id/university_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="University Name"
+            android:drawableLeft="@drawable/university"
+            android:drawableTint="@color/white"
+            android:drawablePadding="15dp"
+            android:fontFamily="sans-serif-medium"
+            android:inputType="textWebEmailAddress"
+            android:padding="8dp"
+            android:textColorHint="@color/white"/>
+
+        <EditText
+            android:id="@+id/uva_handle_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="UVa Handle"
+            android:drawableLeft="@drawable/uva_icon"
+            android:drawablePadding="15dp"
+            android:inputType="textWebEmailAddress"
+            android:fontFamily="sans-serif-medium"
+            android:padding="8dp"
+            android:textColorHint="@color/white"/>
+
+        <EditText
+            android:id="@+id/cf_handle_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="CodeForces Handle"
+            android:drawableLeft="@drawable/cf"
+            android:drawablePadding="15dp"
+            android:inputType="textWebEmailAddress"
+            android:fontFamily="sans-serif-medium"
+            android:padding="8dp"
+            android:textColorHint="@color/white"/>
+
+        <EditText
+            android:id="@+id/codechef_handle_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="CodeChef Handle"
+            android:drawableLeft="@drawable/cc"
+            android:drawablePadding="15dp"
+            android:inputType="textWebEmailAddress"
+            android:fontFamily="sans-serif-medium"
+            android:padding="8dp"
+            android:textColorHint="@color/white"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/signup_button"
+        android:text="Save"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/skip_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/signup_button"
+        android:textColor="@color/white"
+        android:text="Skip" />
+
+
+</RelativeLayout>

@@ -17,6 +17,7 @@
     <color name="pink">#fe104d</color>
     <color name="black_overlay">#e4000000</color>
     <color name="darkGreen">#e4009e20</color>
+    <color name="colorAccent2">#dff2fa</color>
 
     <color name="whiteText">#FFF</color>
     <color name="grayText">#8b7991</color>
