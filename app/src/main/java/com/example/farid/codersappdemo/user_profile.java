@@ -1,5 +1,8 @@
 package com.example.farid.codersappdemo;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +14,10 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,24 +46,28 @@ public class user_profile extends AppCompatActivity
     public String cf_handle, cc_handle, name, uva_handle;
     public TextView profile_title, username;
 
+    user_profile_activity userActivity = new user_profile_activity();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
         bindActivity();
-
         mAppBarLayout.addOnOffsetChangedListener(this);
         //mToolbar.inflateMenu(R.menu.profile_menu);
-        startAlphaAnimation(mTitle, 0, View.INVISIBLE);
+
+        userActivity = (user_profile_activity) getIntent().getSerializableExtra("list");
 
         name = getIntent().getStringExtra("name");
-        cf_handle = getIntent().getStringExtra("cf_handle");
-        cc_handle = getIntent().getStringExtra("cc_handle");
-        uva_handle = getIntent().getStringExtra("uva_handle");
-
         addInformationOnProfile();
+        makeViewPager();
 
+    }
+
+
+
+    void makeViewPager() {
         // This is for viewpager
         viewPager1 = findViewById(R.id.view_pager1);
         SpringIndicator springIndicator1 = findViewById(R.id.indicator1);
@@ -73,11 +84,11 @@ public class user_profile extends AppCompatActivity
         PagerModelManager manager1 = new PagerModelManager();
         manager1.addCommonFragment(viewpager_guide.class,  getBgRes(1), getTitles());
         PagerModelManager manager2 = new PagerModelManager();
-        manager2.addCommonFragment(viewpager_guide.class,  getBgRes(1), getTitles());
+        manager2.addCommonFragment(viewpager_guide.class,  getBgRes(2), getTitles());
         PagerModelManager manager3 = new PagerModelManager();
-        manager3.addCommonFragment(viewpager_guide.class,  getBgRes(1), getTitles());
+        manager3.addCommonFragment(viewpager_guide.class,  getBgRes(3), getTitles());
         PagerModelManager manager4 = new PagerModelManager();
-        manager4.addCommonFragment(viewpager_guide.class,  getBgRes(2), getTitles());
+        manager4.addCommonFragment(viewpager_guide.class,  getBgRes(4), getTitles());
 
         ModelPagerAdapter adapter1 = new ModelPagerAdapter(getSupportFragmentManager(), manager1);
         viewPager1.setAdapter(adapter1);
@@ -94,10 +105,10 @@ public class user_profile extends AppCompatActivity
         springIndicator2.setViewPager(viewPager2);
         springIndicator3.setViewPager(viewPager3);
         springIndicator4.setViewPager(viewPager4);
-
     }
 
     public void addInformationOnProfile() {
+        startAlphaAnimation(mTitle, 0, View.INVISIBLE);
         username = findViewById(R.id.profile_username);
         profile_title = findViewById(R.id.profile_textview_title);
 
@@ -115,17 +126,32 @@ public class user_profile extends AppCompatActivity
         List<ViewPagerAttr> list = new ArrayList<>();
 
         if(type == 1 ) {
-            list.add(new ViewPagerAttr(R.drawable.ranking, "Rating", "1745", type, 1, null, null, null));
-            list.add(new ViewPagerAttr(R.drawable.man, "Total Problem Solved", "1745", type, 1, null, null, null));
-            list.add(new ViewPagerAttr(R.drawable.browse, "Type of Coder", "Blue Coder", type, 1, null, null, null));
-            list.add(new ViewPagerAttr(R.drawable.calculator, "demo 2", "1745", type, 1, null, null, null));
-        } else {
-            list.add(new ViewPagerAttr(R.drawable.combined, "Recent Activities", null, type, 1, cf_handle, cc_handle, uva_handle));
-            list.add(new ViewPagerAttr(R.drawable.codeforces_full, "Codeforces Activities", null, type, 2, cf_handle, cc_handle, uva_handle));
-            list.add(new ViewPagerAttr(R.drawable.codechef_full, "Codechef Activities", null, type, 3, cf_handle, cc_handle, uva_handle));
-            list.add(new ViewPagerAttr(R.drawable.uva, "UVA Activities", null, type, 4, cf_handle, cc_handle, uva_handle));
+            list.add(new ViewPagerAttr(R.drawable.ranking, "Rating", userActivity.cf_rating, 1, 1, null, null, null));
+            list.add(new ViewPagerAttr(R.drawable.count, "Total Submissions", userActivity.cf_totalSubmissions, 1, 1, null, null, null));
+            list.add(new ViewPagerAttr(R.drawable.programmer, "Type of Coder", userActivity.cf_typeOfCoder, 1, 1, null, null, null));
+            list.add(new ViewPagerAttr(R.drawable.rank, "Max Rank", userActivity.cf_maxRank, 1, 1, null, null, null));
+        } else if(type == 2) {
+            list.add(new ViewPagerAttr(R.drawable.ranking, "Rating", userActivity.cc_rating, 2, 1, null, null, null));
+            list.add(new ViewPagerAttr(R.drawable.count, "Total Problem Solved", userActivity.cc_totalSolved, 2, 1, null, null, null));
+            list.add(new ViewPagerAttr(R.drawable.programmer, "Type of Coder", userActivity.cc_typeOfCoder, 2, 1, null, null, null));
+            list.add(new ViewPagerAttr(R.drawable.rank, "Country Rank", userActivity.cc_countryRank, 2, 1, null, null, null));
+        } else if(type == 3) {
+            list.add(new ViewPagerAttr(R.drawable.ranking, "Rating", "Not Added Yet", 3, 1, null, null, null));
+            list.add(new ViewPagerAttr(R.drawable.count, "Total Problem Solved", "Not Added Yet", 3, 1, null, null, null));
+            list.add(new ViewPagerAttr(R.drawable.programmer, "Type of Coder", "Not Added Yet", 3, 1, null, null, null));
+            list.add(new ViewPagerAttr(R.drawable.rank, "Global Rank", "Not Added Yet", 3, 1, null, null, null));
+        } else if(type == 4) {
+            list.add(new ViewPagerAttr(R.drawable.combined, "Recent Activities", null, 4, 1, cf_handle, cc_handle, uva_handle));
+            list.add(new ViewPagerAttr(R.drawable.codeforces_full, "Codeforces Activities", null, 4, 2, cf_handle, cc_handle, uva_handle));
+            list.add(new ViewPagerAttr(R.drawable.codechef_full, "Codechef Activities", null, 4, 3, cf_handle, cc_handle, uva_handle));
+            list.add(new ViewPagerAttr(R.drawable.uva, "UVA Activities", null, 4, 4, cf_handle, cc_handle, uva_handle));
         }
         return list;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     private void bindActivity() {

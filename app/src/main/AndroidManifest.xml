@@ -31,7 +31,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".submission.sub_recyclerview" />
         <activity android:name=".submission.sub_code_view" />
-        <activity android:name=".login.signin_activity" >
+        <activity android:name=".login.signin_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,7 +39,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".login.signup_activity" />
-        <activity android:name=".login.personal_details_activity"></activity>
+        <activity android:name=".login.personal_details_activity" />
+        <activity android:name=".user_profile_loading"></activity>
     </application>
 
 </manifest>

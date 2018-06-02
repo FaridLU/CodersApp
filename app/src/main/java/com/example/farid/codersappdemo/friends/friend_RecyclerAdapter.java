@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.farid.codersappdemo.MainActivity;
 import com.example.farid.codersappdemo.R;
 import com.example.farid.codersappdemo.user_profile;
+import com.example.farid.codersappdemo.user_profile_loading;
 
 import org.w3c.dom.Text;
 
@@ -52,7 +53,7 @@ public class friend_RecyclerAdapter extends RecyclerView.Adapter<friend_Recycler
         holder.card_view_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, user_profile.class);
+                Intent intent = new Intent(mContext, user_profile_loading.class);
                 intent.putExtra("name", list.get(position).getFriend_name());
                 intent.putExtra("cf_handle", list.get(position).getCodeforcesID());
                 intent.putExtra("cc_handle", list.get(position).getCodechefID());
