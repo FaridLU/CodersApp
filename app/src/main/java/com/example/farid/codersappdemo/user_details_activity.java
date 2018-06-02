@@ -1,10 +1,7 @@
-package com.example.farid.codersappdemo.login;
+package com.example.farid.codersappdemo;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -15,12 +12,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.farid.codersappdemo.R;
-
+import com.example.farid.codersappdemo.Model.UniversityModel;
+import com.example.farid.codersappdemo.Model.UserModel;
+import com.example.farid.codersappdemo.login.signin_activity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,7 +35,8 @@ import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class personal_details_activity extends AppCompatActivity {
+
+public class user_details_activity extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 1;
     private CircleImageView profilePic;
@@ -62,63 +60,39 @@ public class personal_details_activity extends AppCompatActivity {
     String codechefHandle;
     String uri;
     String savedUri;
+    String key;
 
     public static final int PICK_IMAGE = 1;
     private Uri resultUri;
     private String modifiedUniversityName;
+    private ValueEventListener userDataListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_details_activity);
-
         setTitle("Add Information");
-
         initView();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            skipBtn.setVisibility(View.GONE);
-
-            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-            String key = sharedPref.getString("UNIVERSITY_KEY", "");
-            Log.v("DATA_Ana", key);
-
-            if (key != "") {
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("universityWiseUserList").child(key).child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-                ref.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            user_model model = dataSnapshot.getValue(user_model.class);
-
-                            Log.v("DATA_Ana", "userName: "+model.getUserName());
-
-                            userNameField.setText(model.getUserName());
-                            universityNameField.setText(model.getUniversityName());
-                            uvaHandleField.setText(model.getUvaHandle());
-                            cfHandleField.setText(model.getCfHandle());
-                            codechefHandleField.setText(model.getCodechefHandle());
-
-                            savedUri = model.getProfilePic();
-                            uri = savedUri;
-
-                            Glide.with(personal_details_activity.this).load(uri).into(profilePic);
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            }
-
-
+            Log.v("DATA_Ana", "Bundle Not Null");
+        } else {
+            Log.v("DATA_Ana", "Bundle Null");
         }
 
+        if (bundle != null) {
+            skipBtn.setVisibility(View.GONE);
+
+            //SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+            key = bundle.getString("UNIVERSITY_KEY", "");
+            userId = bundle.getString("USER_KEY", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+            if (key != "") {
+                mUniversityWiseUserListRef = FirebaseDatabase.getInstance().getReference().child("universityWiseUserList").child(key).child(userId);
+                mUniversityWiseUserListRef.addValueEventListener(userDataListener);
+            }
+        }
 
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +106,7 @@ public class personal_details_activity extends AppCompatActivity {
         skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(personal_details_activity.this, signin_activity.class));
+                startActivity(new Intent(user_details_activity.this, signin_activity.class));
                 finish();
             }
         });
@@ -147,8 +121,8 @@ public class personal_details_activity extends AppCompatActivity {
                 cfHandle = cfHandleField.getText().toString().trim();
                 codechefHandle = codechefHandleField.getText().toString().trim();
 
-                if(universityName == null || userName == null || uvaHandle == null || cfHandle == null || codechefHandle == null) {
-                    Toast.makeText(personal_details_activity.this, "Please fill All field!", Toast.LENGTH_SHORT).show();
+                if (universityName == null || userName == null || uvaHandle == null || cfHandle == null || codechefHandle == null) {
+                    Toast.makeText(user_details_activity.this, "Please fill All field!", Toast.LENGTH_SHORT).show();
                 } else {
                     if (savedUri != null && uri == savedUri) {
                         saveDataToDatabase();
@@ -161,52 +135,57 @@ public class personal_details_activity extends AppCompatActivity {
     }
 
     private void uploadPhoto() {
+        if (resultUri != null) {
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("userPhoto").child(userId);
+            Bitmap bitmap = null;
 
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("userPhoto").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        Bitmap bitmap = null;
-
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), resultUri);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
-
-        byte[] data = byteArrayOutputStream.toByteArray();
-
-        storageRef.putBytes(data).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if (task.isSuccessful()) {
-                    uri = task.getResult().getDownloadUrl().toString();
-
-                    saveDataToDatabase();
-                } else {
-                    Toast.makeText(personal_details_activity.this, "Failed to Save\n please try again", Toast.LENGTH_SHORT).show();
-                }
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), resultUri);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        });
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
 
+            byte[] data = byteArrayOutputStream.toByteArray();
+
+            storageRef.putBytes(data).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        uri = task.getResult().getDownloadUrl().toString();
+
+                        saveDataToDatabase();
+                    } else {
+                        Toast.makeText(user_details_activity.this, "Failed to Save\n please try again", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } else {
+            saveDataToDatabase();
+        }
     }
 
     private void saveDataToDatabase() {
         modifiedUniversityName = universityName.toLowerCase().replace(" ", "");
 
-        mUniversityListRef.child(modifiedUniversityName).setValue(new university_model(universityName.toUpperCase(), modifiedUniversityName)).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mUniversityListRef.child(modifiedUniversityName).setValue(new UniversityModel(universityName.toUpperCase(), modifiedUniversityName)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     saveUserToUserList();
                 } else {
-                    Toast.makeText(personal_details_activity.this, "Failed to Save\n please try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(user_details_activity.this, "Failed to Save\n please try again", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     private void saveUserToUserList() {
-        mUniversityWiseUserListRef.child(modifiedUniversityName).child(userId).setValue(new user_model(
+        mUniversityWiseUserListRef.removeEventListener(userDataListener);
+        mUniversityWiseUserListRef = FirebaseDatabase.getInstance().getReference().child("universityWiseUserList").child(modifiedUniversityName).child(userId);;
+        mUniversityWiseUserListRef.addValueEventListener(userDataListener);
+        mUniversityWiseUserListRef.setValue(new UserModel(
                 userName,
                 universityName,
                 userId,
@@ -218,16 +197,19 @@ public class personal_details_activity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                    /*SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("UNIVERSITY_KEY", modifiedUniversityName);
-                    editor.commit();
+                    editor.commit();*/
+                    Toast.makeText(user_details_activity.this, "Data Saved", Toast.LENGTH_SHORT).show();
 
-                    startActivity(new Intent(personal_details_activity.this, signin_activity.class));
-                    finish();
 
+                    if (key == "" || key == null) {
+                        startActivity(new Intent(user_details_activity.this, signin_activity.class));
+                        finish();
+                    }
                 } else {
-                    Toast.makeText(personal_details_activity.this, "Failed to Save\n please try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(user_details_activity.this, "Failed to Save\n please try again", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -258,6 +240,32 @@ public class personal_details_activity extends AppCompatActivity {
         mUniversityWiseUserListRef = FirebaseDatabase.getInstance().getReference().child("universityWiseUserList");
         mUniversityListRef = FirebaseDatabase.getInstance().getReference().child("universityList");
 
+        userDataListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    UserModel model = dataSnapshot.getValue(UserModel.class);
 
+                    Log.v("DATA_Ana", "userName: " + model.getUserName());
+
+                    userNameField.setText(model.getUserName());
+                    universityNameField.setText(model.getUniversityName());
+                    uvaHandleField.setText(model.getUvaHandle());
+                    cfHandleField.setText(model.getCfHandle());
+                    codechefHandleField.setText(model.getCodechefHandle());
+
+                    savedUri = model.getProfilePic();
+                    uri = savedUri;
+
+                    Glide.with(user_details_activity.this).load(uri).into(profilePic);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
     }
 }

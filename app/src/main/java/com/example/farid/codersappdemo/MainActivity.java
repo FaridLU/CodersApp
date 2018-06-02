@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 case "ranking" : {
                     prev_position=3;
                     sNavigationDrawer.setAppbarTitleTV("Ranking");
-                    fragmentClass =  friend_list.class;
+                    fragmentClass =  UniversityListFragment.class;
                     break;
                 }
                 case "calculator" : {
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case 3:{
                         prev_position= 3;
-                        fragmentClass = friend_list.class;
+                        fragmentClass = UniversityListFragment.class;
                         break;
                     }
                     case 4:{
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case 5:{
                         prev_position= 5;
-                        Intent intent2 = new Intent(MainActivity.this, user_profile.class);
+                        Intent intent2 = new Intent(MainActivity.this, user_profile_loading.class);
                         intent2.putExtra("name", "Farid Ul Islam Chy");
                         intent2.putExtra("cf_handle", "_FariD_");
                         intent2.putExtra("cc_handle", "fake_death");
