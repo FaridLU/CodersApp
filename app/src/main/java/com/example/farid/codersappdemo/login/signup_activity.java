@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.farid.codersappdemo.R;
+import com.example.farid.codersappdemo.user_details_activity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -80,7 +81,7 @@ public class signup_activity extends AppCompatActivity implements View.OnClickLi
                 if (task.isSuccessful()) {
                     finish();
                     //startActivity(new Intent(SignUpActivity.this, ProActivity.class));
-                    startActivity(new Intent(signup_activity.this, personal_details_activity.class));
+                    startActivity(new Intent(signup_activity.this, user_details_activity.class));
                 } else {
 
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {

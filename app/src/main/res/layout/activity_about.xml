@@ -227,16 +227,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="Source Code:"
+                    android:text="Open Source Code:"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/colorPrimaryDark"
                     android:textIsSelectable="true"
                     android:textSize="16sp"
                     android:textStyle="bold" />
                 <View
-                    android:layout_marginTop="2dp"
-                    android:layout_width="110dp"
-                    android:layout_height="2dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="170dp"
+                    android:layout_height="3dp"
+                    android:background="@color/black"
                     android:layout_gravity="center_horizontal"/>
                 <TextView
                     android:id="@+id/textView4"
@@ -246,7 +247,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:text="www.github.com/FaridBD/CodersAppDemo"
+                    android:text="www.github.com/FaridBD/CodersApp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textIsSelectable="true"
                     android:textSize="16sp"

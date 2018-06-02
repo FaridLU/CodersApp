@@ -68,7 +68,7 @@ public class viewpager_guide extends Fragment {
             Log.d("viewpager", viewPagerAttr.vp_title);
 
 
-            if(viewPagerAttr.vp_title.equals("Max Rank")) {
+            if(viewPagerAttr.vp_title.equals("Max Rank") && !viewPagerAttr.vp_ans.equals("null")) {
                 String str = GiveMeCoderType(Integer.valueOf(viewPagerAttr.vp_ans.substring(0, 4)));
                 Log.d("strstr", str);
                 if(str.equals("Newbie")) ans.setTextColor(Color.parseColor("#FF383939"));
@@ -88,7 +88,8 @@ public class viewpager_guide extends Fragment {
                 if(viewPagerAttr.vp_ans.equals("Candidate Master")) ans.setTextColor(Color.parseColor("#FF760045"));
                 if(viewPagerAttr.vp_ans.equals("Master")) ans.setTextColor(Color.parseColor("#FFC78100"));
 
-            } else if(viewPagerAttr.vp_title.equals("Rating") && vp_type == 1) {
+            } else if(viewPagerAttr.vp_title.equals("Rating") && vp_type == 1 && !viewPagerAttr.vp_ans.equals("null") && viewPagerAttr.vp_ans != null) {
+                Log.d("profile95", viewPagerAttr.vp_ans + "*******");
                 String type = GiveMeCoderType(Integer.valueOf(viewPagerAttr.vp_ans));
                 if(type.equals("Newbie")) ans.setTextColor(Color.parseColor("#FF383939"));
                 if(type.equals("Pupil")) ans.setTextColor(Color.parseColor("#009E20"));

@@ -259,9 +259,7 @@ public class user_details_activity extends AppCompatActivity {
 
                     Glide.with(user_details_activity.this).load(uri).into(profilePic);
                 }
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
