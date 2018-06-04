@@ -65,9 +65,6 @@ public class viewpager_guide extends Fragment {
             title.setText(viewPagerAttr.vp_title);
             ans.setText(viewPagerAttr.vp_ans);
 
-            Log.d("viewpager", viewPagerAttr.vp_title);
-
-
             if(viewPagerAttr.vp_title.equals("Max Rank") && !viewPagerAttr.vp_ans.equals("null")) {
                 String str = GiveMeCoderType(Integer.valueOf(viewPagerAttr.vp_ans.substring(0, 4)));
                 Log.d("strstr", str);
@@ -129,6 +126,7 @@ public class viewpager_guide extends Fragment {
                             intent.putExtra("cf_username", cf_handle);
                             intent.putExtra("cc_username", cc_handle);
                             intent.putExtra("uva_handle", uva_handle);
+                            Log.d("submissions", "viewpager: "+ cf_handle);
                             startActivity(intent);
                         }
                     }, 3000);

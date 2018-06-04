@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.VideoView;
 
+import com.example.farid.codersappdemo.login.signin_activity;
+
 public class splash_screen extends AppCompatActivity {
 
     VideoView videoView;
@@ -34,7 +36,7 @@ public class splash_screen extends AppCompatActivity {
     private void startNextActivity() {
         if (isFinishing())
             return;
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, signin_activity.class));
         finish();
     }
 }

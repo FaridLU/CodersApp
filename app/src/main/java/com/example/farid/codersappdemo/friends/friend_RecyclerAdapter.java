@@ -58,6 +58,7 @@ public class friend_RecyclerAdapter extends RecyclerView.Adapter<friend_Recycler
                 intent.putExtra("cf_handle", list.get(position).getCodeforcesID());
                 intent.putExtra("cc_handle", list.get(position).getCodechefID());
                 intent.putExtra("uva_handle", list.get(position).getUvaID());
+                intent.putExtra("type", 1);
                 Log.d("tagtag2", list.get(position).getUvaID());
                 mContext.startActivity(intent);
 

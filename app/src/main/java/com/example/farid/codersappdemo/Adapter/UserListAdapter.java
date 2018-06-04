@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.example.farid.codersappdemo.Model.UserModel;
 import com.example.farid.codersappdemo.R;
 import com.example.farid.codersappdemo.user_details_activity;
+import com.example.farid.codersappdemo.user_profile_loading;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,17 +43,20 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListViewHolder> {
 
         holder.user_name_tv.setText(list.get(position).getUserName());
         holder.user_institute_tv.setText(list.get(position).getUniversityName());
-        Glide.with(mContext).load(list.get(position).getProfilePic()).into(holder.user_img);
 
+        if(list.get(position).getProfilePic() == null) {
+            holder.user_img.setImageResource(R.drawable.man);
+        } else {
+            Glide.with(mContext).load(list.get(position).getProfilePic()).into(holder.user_img);
+        }
         holder.card_view_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String userId = list.get(position).getUserId();
 
-                Intent intent = new Intent(mContext, user_details_activity.class);
+                Intent intent = new Intent(mContext, user_profile_loading.class);
                 intent.putExtra("USER_KEY", userId);
                 intent.putExtra("UNIVERSITY_KEY", universityKey);
-
                 mContext.startActivity(intent);
             }
         });

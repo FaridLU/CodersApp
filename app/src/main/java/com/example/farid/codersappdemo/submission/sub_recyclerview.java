@@ -128,7 +128,7 @@ public class sub_recyclerview extends AppCompatActivity {
             layoutManager = new LinearLayoutManager(mContext);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(myAdapter);
-
+            Log.d("submissions",  cf_handle + " * ");
             new BackgroundParsing(sub_recyclerview.this, 1, 2).execute();
         } else if(type == 3) { // Codechef
             setTitle(" Codechef Submissions");

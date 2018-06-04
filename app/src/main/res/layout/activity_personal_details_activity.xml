@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/purple"
     android:padding="16dp"
-    tools:context=".login.personal_details_activity">
+    tools:context=".user_details_activity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,6 +36,7 @@
             android:fontFamily="sans-serif-medium"
             android:inputType="textWebEmailAddress"
             android:padding="8dp"
+            android:textColor="@color/white"
             android:textColorHint="@color/white"/>
 
         <EditText
@@ -50,6 +51,7 @@
             android:fontFamily="sans-serif-medium"
             android:inputType="textWebEmailAddress"
             android:padding="8dp"
+            android:textColor="@color/white"
             android:textColorHint="@color/white"/>
 
         <EditText
@@ -63,6 +65,7 @@
             android:inputType="textWebEmailAddress"
             android:fontFamily="sans-serif-medium"
             android:padding="8dp"
+            android:textColor="@color/white"
             android:textColorHint="@color/white"/>
 
         <EditText
@@ -76,6 +79,7 @@
             android:inputType="textWebEmailAddress"
             android:fontFamily="sans-serif-medium"
             android:padding="8dp"
+            android:textColor="@color/white"
             android:textColorHint="@color/white"/>
 
         <EditText
@@ -90,6 +94,7 @@
             android:fontFamily="sans-serif-medium"
             android:padding="8dp"
             android:textColorHint="@color/white"
+            android:textColor="@color/white"
             android:layout_marginBottom="10dp"/>
 
     </LinearLayout>

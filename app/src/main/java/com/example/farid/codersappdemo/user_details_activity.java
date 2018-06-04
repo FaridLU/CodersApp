@@ -1,7 +1,9 @@
 package com.example.farid.codersappdemo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -58,7 +60,7 @@ public class user_details_activity extends AppCompatActivity {
     String uvaHandle;
     String cfHandle;
     String codechefHandle;
-    String uri;
+    String uri = null;
     String savedUri;
     String key;
 

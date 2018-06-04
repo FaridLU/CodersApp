@@ -11,6 +11,7 @@ public class UserModel {
     private String codechefHandle;
 
     public UserModel() {
+        this.profilePic = null;
     }
 
     public UserModel(String userName, String universityName, String userId, String profilePic, String uvaHandle, String cfHandle, String codechefHandle) {

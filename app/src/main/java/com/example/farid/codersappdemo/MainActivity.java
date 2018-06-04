@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case 5:{
                         prev_position= 5;
+
                         Intent intent2 = new Intent(MainActivity.this, user_profile_loading.class);
                         intent2.putExtra("name", "Farid Ul Islam Chy");
                         intent2.putExtra("cf_handle", "_FariD_");

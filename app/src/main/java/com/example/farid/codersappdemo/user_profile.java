@@ -9,11 +9,21 @@ import android.os.Bundle;
 
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.example.farid.codersappdemo.Model.UserModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -23,6 +33,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import github.chenupt.multiplemodel.viewpager.ModelPagerAdapter;
 import github.chenupt.multiplemodel.viewpager.PagerModelManager;
 import github.chenupt.springindicator.SpringIndicator;
@@ -30,23 +41,28 @@ import github.chenupt.springindicator.SpringIndicator;
 public class user_profile extends AppCompatActivity
     implements AppBarLayout.OnOffsetChangedListener, Serializable{
 
-    public static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR  = 0.9f;
-    public static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS     = 0.3f;
-    public static final int ALPHA_ANIMATIONS_DURATION              = 200;
+    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR  = 0.9f;
+    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS     = 0.3f;
+    private static final int ALPHA_ANIMATIONS_DURATION              = 200;
 
-    public boolean mIsTheTitleVisible          = false;
-    public boolean mIsTheTitleContainerVisible = true;
+    private boolean mIsTheTitleVisible          = false;
+    private boolean mIsTheTitleContainerVisible = true;
 
-    public LinearLayout mTitleContainer;
-    public TextView mTitle;
-    public AppBarLayout mAppBarLayout;
-    public Toolbar mToolbar;
+    private LinearLayout mTitleContainer;
+    private TextView mTitle;
+    private AppBarLayout mAppBarLayout;
+    private Toolbar mToolbar;
 
-    public ViewPager viewPager1, viewPager2, viewPager3, viewPager4;
-    public String cf_handle, cc_handle, name, uva_handle;
-    public TextView profile_title, username;
+    private ViewPager viewPager1, viewPager2, viewPager3, viewPager4;
+    private String cf_handle, cc_handle, name, uva_handle;
+    private TextView profile_title, username;
 
-    user_profile_activity userActivity = new user_profile_activity();
+    private user_profile_activity userActivity = new user_profile_activity();
+    private String userId, key;
+    private DatabaseReference mUniversityWiseUserListRef, mUniversityListRef ;
+    private ValueEventListener userDataListener;
+    private String uri, savedUri;
+    private CircleImageView profilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +74,57 @@ public class user_profile extends AppCompatActivity
         //mToolbar.inflateMenu(R.menu.profile_menu);
 
         userActivity = (user_profile_activity) getIntent().getSerializableExtra("list");
-
         name = getIntent().getStringExtra("name");
+        cf_handle = getIntent().getStringExtra("cf_handle");
+        cc_handle= getIntent().getStringExtra("cc_handle");
+        uva_handle = getIntent().getStringExtra("uva_handle");
+        Log.d("submissions", "onCreate->" + cf_handle + " * " + cc_handle);
+
+
         addInformationOnProfile();
         makeViewPager();
 
+        // Load image for Specific user
+        initView();
+        profilePic = findViewById(R.id.profilePic);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            key = bundle.getString("UNIVERSITY_KEY", "");
+            userId = bundle.getString("USER_KEY", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+            if (key != "") {
+                Log.d("tpstps", key);
+                mUniversityWiseUserListRef = FirebaseDatabase.getInstance().getReference().child("universityWiseUserList").child(key).child(userId);
+                mUniversityWiseUserListRef.addValueEventListener(userDataListener);
+            }
+        }
+
     }
 
+    private void initView() {
 
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mUniversityWiseUserListRef = FirebaseDatabase.getInstance().getReference().child("universityWiseUserList");
+        mUniversityListRef = FirebaseDatabase.getInstance().getReference().child("universityList");
+
+        userDataListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    UserModel model = dataSnapshot.getValue(UserModel.class);
+                    savedUri = model.getProfilePic();
+                    uri = savedUri;
+                    if(uri != null) {
+                        Glide.with(user_profile.this).load(uri).into(profilePic);
+                    } else profilePic.setImageResource(R.drawable.man);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+    }
 
     void makeViewPager() {
         // This is for viewpager
@@ -141,6 +200,7 @@ public class user_profile extends AppCompatActivity
             list.add(new ViewPagerAttr(R.drawable.programmer, "Type of Coder", "Not Added Yet", 3, 1, null, null, null));
             list.add(new ViewPagerAttr(R.drawable.rank, "Global Rank", "Not Added Yet", 3, 1, null, null, null));
         } else if(type == 4) {
+            Log.d("submissions", "Set->" + cf_handle + " * " + cc_handle);
             list.add(new ViewPagerAttr(R.drawable.combined, "Recent Activities", null, 4, 1, cf_handle, cc_handle, uva_handle));
             list.add(new ViewPagerAttr(R.drawable.codeforces_full, "Codeforces Activities", null, 4, 2, cf_handle, cc_handle, uva_handle));
             list.add(new ViewPagerAttr(R.drawable.codechef_full, "Codechef Activities", null, 4, 3, cf_handle, cc_handle, uva_handle));

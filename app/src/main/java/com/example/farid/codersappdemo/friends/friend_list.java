@@ -55,7 +55,7 @@ public class friend_list extends Fragment implements View.OnClickListener{
         Friend_List.add(new FriendActivity("Rasel Ahmed", "Leading University, Sylhet", "RaselAhmed", "elubilu", "Fake_Death", R.drawable.man));
         Friend_List.add(new FriendActivity("Mashud Zaman", "Leading University, Sylhet", "MaSh-uD", "mash_ud", "Fake_Death", R.drawable.man));
         Friend_List.add(new FriendActivity("Kollol Chakroborty", "Leading University, Sylhet", "cyanomax", "cyanomax", "Fake_Death", R.drawable.man));
-        Friend_List.add(new FriendActivity("Sayed Al Mahdi", "Leading University, Sylhet", "the_badcoder", "sayedalmahdi", "Fake_Death", R.drawable.man));
+        Friend_List.add(new FriendActivity("Sayed Al Mahdi", "Leading University, Sylhet", "sayedalmahdi", "sayedalmahdi", "Fake_Death", R.drawable.man));
         Friend_List.add(new FriendActivity("Farid ul Islam Chy", "Leading University, Sylhet", "_FariD_", "fake_death", "Fake_Death", R.drawable.man));
 
 

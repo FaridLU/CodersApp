@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.farid.codersappdemo.friends.friend_list;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class dashboard_activity extends Fragment implements View.OnClickListener {
 
@@ -42,7 +44,7 @@ public class dashboard_activity extends Fragment implements View.OnClickListener
         ranking_card = v.findViewById(R.id.ranking_card);
         calculator_card = v.findViewById(R.id.calculator_card);
         my_profile_card = v.findViewById(R.id.my_profile_card);
-
+        Toast.makeText(getActivity(), FirebaseAuth.getInstance().getCurrentUser().getUid() + "**", Toast.LENGTH_SHORT).show();
 
         contests_card.setOnClickListener(this);
         friends_card.setOnClickListener(this);

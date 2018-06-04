@@ -32,12 +32,13 @@ public class signup_activity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        getSupportActionBar().hide();
 
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        textViewLogin = (TextView) findViewById(R.id.textViewLogin);
-        buttonSignUp = (Button) findViewById(R.id.buttonSignUp);
-        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        textViewLogin =  findViewById(R.id.textViewLogin);
+        buttonSignUp = findViewById(R.id.buttonSignUp);
+        progressBar =  findViewById(R.id.progressbar);
 
         textViewLogin.setOnClickListener(this);
         buttonSignUp.setOnClickListener(this);

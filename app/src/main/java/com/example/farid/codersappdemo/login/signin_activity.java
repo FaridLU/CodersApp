@@ -33,6 +33,7 @@ public class signin_activity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+        getSupportActionBar().hide();
 
         FirebaseApp.initializeApp(this);
 
