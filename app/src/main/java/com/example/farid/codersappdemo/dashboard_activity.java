@@ -44,7 +44,7 @@ public class dashboard_activity extends Fragment implements View.OnClickListener
         ranking_card = v.findViewById(R.id.ranking_card);
         calculator_card = v.findViewById(R.id.calculator_card);
         my_profile_card = v.findViewById(R.id.my_profile_card);
-        Toast.makeText(getActivity(), FirebaseAuth.getInstance().getCurrentUser().getUid() + "**", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), FirebaseAuth.getInstance().getCurrentUser().getUid() + "**", Toast.LENGTH_SHORT).show();
 
         contests_card.setOnClickListener(this);
         friends_card.setOnClickListener(this);
@@ -64,10 +64,8 @@ public class dashboard_activity extends Fragment implements View.OnClickListener
             case R.id.calculator_card: intent = new Intent(getActivity(), MainActivity.class); intent.putExtra("type","calculator"); startActivity(intent);break;
             case R.id.my_profile_card: {
                 Intent intent2 = new Intent(getActivity(), user_profile_loading.class);
-                intent2.putExtra("name", "Farid Ul Islam Chy");
-                intent2.putExtra("cf_handle", "_FariD_");
-                intent2.putExtra("cc_handle", "fake_death");
-                intent2.putExtra("uva_handle", "fake_death");
+                intent2.putExtra("type", 3);
+                intent2.putExtra("USER_KEY", FirebaseAuth.getInstance().getCurrentUser().getUid());
                 startActivity(intent2);
                 break;
             }

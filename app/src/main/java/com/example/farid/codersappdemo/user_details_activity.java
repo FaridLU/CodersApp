@@ -77,16 +77,9 @@ public class user_details_activity extends AppCompatActivity {
         initView();
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            Log.v("DATA_Ana", "Bundle Not Null");
-        } else {
-            Log.v("DATA_Ana", "Bundle Null");
-        }
 
         if (bundle != null) {
             skipBtn.setVisibility(View.GONE);
-
-            //SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
             key = bundle.getString("UNIVERSITY_KEY", "");
             userId = bundle.getString("USER_KEY", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
@@ -116,7 +109,6 @@ public class user_details_activity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 universityName = universityNameField.getText().toString().trim();
                 userName = userNameField.getText().toString().trim();
                 uvaHandle = uvaHandleField.getText().toString().trim();
@@ -170,6 +162,7 @@ public class user_details_activity extends AppCompatActivity {
 
     private void saveDataToDatabase() {
         modifiedUniversityName = universityName.toLowerCase().replace(" ", "");
+        FirebaseDatabase.getInstance().getReference().child("userProfilePath").child(userId).setValue(modifiedUniversityName);
 
         mUniversityListRef.child(modifiedUniversityName).setValue(new UniversityModel(universityName.toUpperCase(), modifiedUniversityName)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

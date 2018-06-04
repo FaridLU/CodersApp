@@ -16,6 +16,8 @@ import android.view.View;
 
 import com.example.farid.codersappdemo.contest.main_contest;
 import com.example.farid.codersappdemo.friends.friend_list;
+import com.example.farid.codersappdemo.login.signin_activity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.shrikanthravi.customnavigationdrawer2.data.MenuItem;
 import com.shrikanthravi.customnavigationdrawer2.widget.SNavigationDrawer;
 
@@ -41,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-
-
         sNavigationDrawer = findViewById(R.id.navigationDrawer);
 
         List<MenuItem> menuItems = new ArrayList<>();
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         menuItems.add(new MenuItem("Calculator",R.drawable.material_background));
         menuItems.add(new MenuItem("My Profile",R.drawable.material_background));
         menuItems.add(new MenuItem("About",R.drawable.material_background));
+        menuItems.add(new MenuItem("Logout",R.drawable.material_background));
         menuItems.add(new MenuItem("Exit",R.drawable.material_background));
 
 
@@ -147,12 +148,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case 5:{
                         prev_position= 5;
-
                         Intent intent2 = new Intent(MainActivity.this, user_profile_loading.class);
-                        intent2.putExtra("name", "Farid Ul Islam Chy");
-                        intent2.putExtra("cf_handle", "_FariD_");
-                        intent2.putExtra("cc_handle", "fake_death");
-                        intent2.putExtra("uva_handle", "fake_death");
+                        intent2.putExtra("type", 3);
+                        intent2.putExtra("USER_KEY", FirebaseAuth.getInstance().getCurrentUser().getUid());
                         startActivity(intent2);
                         break;
                     }
@@ -162,6 +160,34 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case 7:{
+                        final AlertDialog.Builder builder;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            builder = new AlertDialog.Builder(MainActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                        } else {
+                            builder = new AlertDialog.Builder(MainActivity.this);
+                        }
+                        builder.setTitle("Close app")
+                                .setMessage("Are you sure you want to Log out from this app?");
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseAuth.getInstance().signOut();
+                                startActivity(new Intent(getApplicationContext(), signin_activity.class));
+                                finish();
+                            }
+                        });
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                sNavigationDrawer.openDrawer();
+                                sNavigationDrawer.setAppbarTitleTV("Dashboard");
+                                fragmentClass = dashboard_activity.class;
+                            }
+                        });
+                        builder.show();
+                        break;
+                    }
+                    case 8:{
                         onBackPressed();
                         break;
                     }
@@ -201,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onDrawerStateChanged(int newState) {
-                        System.out.println("State "+newState);
+
                     }
                 });
             }
@@ -241,6 +267,12 @@ public class MainActivity extends AppCompatActivity {
                         if(prev_position == 0) sNavigationDrawer.setAppbarTitleTV("Dashboard");
                         else if(prev_position == 1) sNavigationDrawer.setAppbarTitleTV("Contests");
                         else if(prev_position == 2) sNavigationDrawer.setAppbarTitleTV("Friends");
+                        else if(prev_position == 3) sNavigationDrawer.setAppbarTitleTV("Ranking");
+                        else if(prev_position == 4) sNavigationDrawer.setAppbarTitleTV("Calculator");
+                        else if(prev_position == 5) sNavigationDrawer.setAppbarTitleTV("My Profile");
+                        else if(prev_position == 6) sNavigationDrawer.setAppbarTitleTV("About");
+                        else if(prev_position == 7) sNavigationDrawer.setAppbarTitleTV("Logout");
+                        else if(prev_position == 8) sNavigationDrawer.setAppbarTitleTV("Exit");
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         fragmentManager.beginTransaction().setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out).replace(R.id.frameLayout, fragment).commit();
 

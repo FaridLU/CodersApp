@@ -103,6 +103,7 @@ public class signup_activity extends AppCompatActivity implements View.OnClickLi
             //finish();
             //startActivity(new Intent(this, MainActivity.class));
             startActivity(new Intent(this, signin_activity.class));
+            finish();
         }
     }
 }

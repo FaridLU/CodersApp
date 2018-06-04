@@ -28,8 +28,9 @@ public class user_profile_loading extends AppCompatActivity {
     private String cf_handle, cc_handle, name, uva_handle;
     private user_profile_activity user_activity = new user_profile_activity();
     private String key, userId;
-    private DatabaseReference mUniversityWiseUserListRef, mUniversityListRef ;
+    private DatabaseReference mUniversityWiseUserListRef, mUniversityListRef;
     private ValueEventListener userDataListener;
+    private ValueEventListener userProfilePathFinder;
     private BackgroundParse backgroundParse;
 
     ProgressDialog dialog;
@@ -62,7 +63,8 @@ public class user_profile_loading extends AppCompatActivity {
         initView();
         Bundle bundle = getIntent().getExtras();
 
-        if(bundle != null && type == 2) {
+        if (bundle != null && type == 2) {
+            //FirebaseDatabase.getInstance().getReference().child("userProfilePath").child(userId).addValueEventListener(userProfilePathFinder);
             key = bundle.getString("UNIVERSITY_KEY", "");
             userId = bundle.getString("USER_KEY", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
@@ -74,12 +76,32 @@ public class user_profile_loading extends AppCompatActivity {
 
             }
         }
+        if (type == 3) {
+            userId = getIntent().getStringExtra("USER_KEY");
+
+            Log.d("tyty", userId);
+            FirebaseDatabase.getInstance().getReference().child("userProfilePath").child(userId).addValueEventListener(userProfilePathFinder);
+            /*new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (key != "") {
+                        Log.d("tpstps", "CF Handle: " + cf_handle);
+                        mUniversityWiseUserListRef = FirebaseDatabase.getInstance().getReference().child("universityWiseUserList").child(key).child(userId);
+                        mUniversityWiseUserListRef.addValueEventListener(userDataListener);
+                        Log.d("DATA_Ana", "ono aise");
+
+                    }
+                }
+            }, 3000);*/
+        }
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 backgroundParse.execute();
             }
         }, 2000);
+         //FirebaseAuth.getInstance().signOut();
     }
 
     private void initView() {
@@ -102,6 +124,23 @@ public class user_profile_loading extends AppCompatActivity {
                     cc_handle = model.getCodechefHandle();
                 }
             }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        userProfilePathFinder = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    key = dataSnapshot.getValue().toString();
+                    mUniversityWiseUserListRef = FirebaseDatabase.getInstance().getReference().child("universityWiseUserList").child(key).child(userId);
+                    mUniversityWiseUserListRef.addValueEventListener(userDataListener);
+                }
+            }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -151,19 +190,21 @@ public class user_profile_loading extends AppCompatActivity {
 
     void CodeforcesInformation(String userID) {
         try {
-            Document doc = Jsoup.connect("http://codeforces.com/profile/"+userID).get();
+            Document doc = Jsoup.connect("http://codeforces.com/profile/" + userID).get();
 
             String rating = doc.getElementsByClass("info").select("ul").select("li").select("span").get(0).text();
             String MaxType = doc.getElementsByClass("info").select("ul").select("li").select("span").get(2).text();
-            String MaxRank  = doc.getElementsByClass("info").select("ul").select("li").select("span").get(1).select("span").get(2).text();
+            String MaxRank = doc.getElementsByClass("info").select("ul").select("li").select("span").get(1).select("span").get(2).text();
 
 
-            doc = Jsoup.connect("http://codeforces.com/submissions/_FariD_").get();
-            String ans  = doc.getElementsByClass("page-index").last().text();
+            doc = Jsoup.connect("http://codeforces.com/submissions/"+userID).get();
+            String ans = doc.getElementsByClass("page-index").last().text();
 
-            int totalSubmissions = (Integer.valueOf(ans)-1)*50;
+            Log.d("mahfuz.lu", ans);
 
-            doc = Jsoup.connect("http://codeforces.com/submissions/"+userID+"/page/"+ans).get();
+            int totalSubmissions = (Integer.valueOf(ans) - 1) * 50;
+
+            doc = Jsoup.connect("http://codeforces.com/submissions/" + userID + "/page/" + ans).get();
             totalSubmissions += doc.getElementsByClass("status-frame-datatable").select("tbody").select("tr").size();
 
 
@@ -172,27 +213,27 @@ public class user_profile_loading extends AppCompatActivity {
             user_activity.cf_totalSubmissions = Integer.toString(totalSubmissions);
             user_activity.cf_typeOfCoder = GiveMeCoderType(Integer.valueOf(rating));
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private String GiveMeCoderType(int rating) {
-        if(rating <= 1199) return "Newbie";
-        else if(rating <= 1399) return "Pupil";
-        else if(rating <= 1599) return "Specialist";
-        else if(rating <= 1899) return "Expert";
-        else if(rating <= 2199) return "Candidate Master";
-        else if(rating <= 2299) return "Master";
-        else if(rating <= 2399) return "International Master";
-        else if(rating <= 2599) return "Grandmaster";
-        else if(rating <= 2899) return "International Grandmaster";
+        if (rating <= 1199) return "Newbie";
+        else if (rating <= 1399) return "Pupil";
+        else if (rating <= 1599) return "Specialist";
+        else if (rating <= 1899) return "Expert";
+        else if (rating <= 2199) return "Candidate Master";
+        else if (rating <= 2299) return "Master";
+        else if (rating <= 2399) return "International Master";
+        else if (rating <= 2599) return "Grandmaster";
+        else if (rating <= 2899) return "International Grandmaster";
         else return "Legendary Grandmaster";
     }
 
     void CodeChefInformation(String handle) {
         try {
-            Document doc = Jsoup.connect("https://www.codechef.com/users/"+handle).get();
+            Document doc = Jsoup.connect("https://www.codechef.com/users/" + handle).get();
 
             String normalCCrating = doc.getElementsByClass("rank-stats").get(0).text();
             String LongChallengeRating = doc.getElementsByClass("rank-stats").get(1).text();
@@ -225,10 +266,10 @@ public class user_profile_loading extends AppCompatActivity {
             CookOffRating = ans;
 
 
-            ans = FullySolved.substring(FullySolved.indexOf("(")+1,FullySolved.indexOf(")"));
+            ans = FullySolved.substring(FullySolved.indexOf("(") + 1, FullySolved.indexOf(")"));
             FullySolved = ans;
 
-            ans = PartiallySolved.substring(PartiallySolved.indexOf("(")+1,PartiallySolved.indexOf(")"));
+            ans = PartiallySolved.substring(PartiallySolved.indexOf("(") + 1, PartiallySolved.indexOf(")"));
             PartiallySolved = ans;
 
             ans = "";
