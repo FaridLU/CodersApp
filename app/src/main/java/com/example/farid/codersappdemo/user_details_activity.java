@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -68,6 +69,7 @@ public class user_details_activity extends AppCompatActivity {
     private Uri resultUri;
     private String modifiedUniversityName;
     private ValueEventListener userDataListener;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,8 @@ public class user_details_activity extends AppCompatActivity {
         setContentView(R.layout.activity_personal_details_activity);
         setTitle("Add Information");
         initView();
+
+        progressBar = findViewById(R.id.progressbar2);
 
         Bundle bundle = getIntent().getExtras();
 
@@ -115,9 +119,11 @@ public class user_details_activity extends AppCompatActivity {
                 cfHandle = cfHandleField.getText().toString().trim();
                 codechefHandle = codechefHandleField.getText().toString().trim();
 
+
                 if (universityName == null || userName == null || uvaHandle == null || cfHandle == null || codechefHandle == null) {
                     Toast.makeText(user_details_activity.this, "Please fill All field!", Toast.LENGTH_SHORT).show();
                 } else {
+                    progressBar.setVisibility(View.VISIBLE);
                     if (savedUri != null && uri == savedUri) {
                         saveDataToDatabase();
                     } else {
@@ -170,6 +176,7 @@ public class user_details_activity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     saveUserToUserList();
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(user_details_activity.this, "Failed to Save\n please try again", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -204,6 +211,7 @@ public class user_details_activity extends AppCompatActivity {
                         finish();
                     }
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(user_details_activity.this, "Failed to Save\n please try again", Toast.LENGTH_SHORT).show();
                 }
             }
